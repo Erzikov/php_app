@@ -141,7 +141,6 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `order_products`, `number`, `admin`) VALUES
 (2, 'Lesha Erzikov', 'lesha-pes@lol.com', '$2y$10$zjKIxVxbQ8B1zgxGhmwlJuiFWecJJ0M.rsnJ4zje806MZUG5zN4Ya', '{\"12\":4}', '+375 29 708 75 23', 1),
 (3, 'TestUser', 'test@user.lol', '$2y$10$uqgoyvKQd6e1/bpIGy210.C7zFZUOWXstc9fwzkTQD5Od.EQlfAYa', NULL, NULL, 0),
-(4, 'Анастасия Минеева', 'mineeva-96@mail.ru', '$2y$10$NpQF8v9SFywd1uhzVoO6TOMIucMU7QqqoeKQUOWobfIsZImbXd956', NULL, NULL, 0),
 (5, 'TestUser', 'testuser@test.com', '$2y$10$3nRyZm.AOhR384drGK3ngOT7asW0KCsgs.kkjB1RjNTvlgc0M0RUi', NULL, NULL, 0),
 (6, 'TestUser2', 'testuser2@test.com', '$2y$10$1sjYGLMfvqtVoq1RLvZnKOTQQiYwn6I8bJlyXBzMT.uNgeGnkC11S', '[]', NULL, 0),
 (7, 'TestUser3', 'testuser3@test.com', '$2y$10$nofeEu9uqDuzHkFkwJX1oeTa6UvnsaxAuFZN7Z3tKVi12Uyv6t.36', NULL, NULL, 0),
