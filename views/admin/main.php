@@ -76,11 +76,11 @@
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-                                    <li><a href="/">Заказы</a></li>
+                                    <li><a href="#">Заказы</a></li>
                                     <li><a href="#">Пользователи</a></li> 
-                                    <li><a href="/blog">Категории</a></li> 
-                                    <li><a href="/about">Товары</a></li>
-                                    <li><a href="/">Магазин</a></li>
+                                    <li><a href="#">Категории</a></li> 
+                                    <li><a href="#">Товары</a></li>
+                                    <li><a href="#">Магазин</a></li>
 
                                 </ul>
                             </div>                            
