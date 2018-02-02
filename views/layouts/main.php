@@ -60,6 +60,9 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">                               
+                                    <?php if (isset($_SESSION['user'])&& $_SESSION['user']['admin']): ?>
+                                        <li><a href="/admin"><i class="fa fa-diamond"></i>Админка</a></li>
+                                    <?php endif; ?>    
                                     <li>
                                         <a href="/cart"><i class="fa fa-shopping-cart"></i>
                                          Корзина (<span id="countProducts"><?= models\Cart::countItems() ?></span>)

@@ -1,5 +1,7 @@
 <?php 
 return array(
+
+    'admin'                           => 'admin/index',
     'profile/edit'                    => 'user/edit',
     'profile'                         => 'user/view',
 
