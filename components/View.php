@@ -2,6 +2,13 @@
 namespace components;
  
 class View {
+
+    public $layout;
+
+    public function __construct($layout)
+    {
+        $this->layout = $layout;
+    }
     // получить отрендеренный шаблон с параметрами $params
     function fetchPartial($template, $params = array()){
         extract($params);
@@ -19,8 +26,8 @@ class View {
     // шаблон с параметрами $params
     function fetch($template, $params = array()){
         $content = $this->fetchPartial($template, $params);
-        // $title = $params['title'];
-        return $this->fetchPartial('layouts/main', array('content' => $content)); 
+        $layout = $this->layout;
+        return $this->fetchPartial($layout, array('content' => $content)); 
     }
  
     // вывести отрендеренный в переменную $content layout-а
