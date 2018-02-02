@@ -2,9 +2,9 @@
 namespace controllers;
 
 use models\User;
-use components\View;
+use components\BaseController;
 
-Class UserController 
+Class UserController extends BaseController
 {
     public function actionCreate()
     {
@@ -42,10 +42,9 @@ Class UserController
             }
         }
 
-        $view = new View();
-        $errorsView = $view->fetchPartial('layouts/errors', array('errors'=>$errors));
+        $errorsView = $this->view->fetchPartial('layouts/errors', array('errors'=>$errors));
 
-        $view->render('user/signup', array('result'=>$result, 'errors' => $errorsView, 'name' => $name, 'password' => $password, 'email' => $email));
+        $this->view->render('user/signup', array('result'=>$result, 'errors' => $errorsView, 'name' => $name, 'password' => $password, 'email' => $email));
 
         return true;
     }
@@ -60,8 +59,7 @@ Class UserController
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
 
-            $view = new View();
-            $view->render('user/view', array('user' => $user));
+            $this->view->render('user/view', array('user' => $user));
         } else {
             header('Location: /signin');
         }
@@ -122,10 +120,9 @@ Class UserController
                 }
             }
 
-            $view = new View();
-            $errorsView = $view->fetchPartial('layouts/errors', array('errors'=>$errors));
+            $errorsView = $this->view->fetchPartial('layouts/errors', array('errors'=>$errors));
 
-            $view->render('user/edit', array('user' => $user, 'errors'=>$errorsView, 'result' => $result));
+            $this->view->render('user/edit', array('user' => $user, 'errors'=>$errorsView, 'result' => $result));
 
         } else {
             header('Location: /signin');

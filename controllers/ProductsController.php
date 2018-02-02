@@ -2,18 +2,17 @@
 namespace controllers;
 
 use models\{Category, Product};
-use components\View;
+use components\BaseController;
 
-Class ProductsController
+Class ProductsController extends BaseController
 {
     public function actionView($id)
     {
         $categories = Category::getAllCategory();
         $product = Product::getProductById($id);
 
-        $view = new View();
-      	$categoriesView = $view->fetchPartial('layouts/categories', array('categories' => $categories));
-      	$view->render('product/view', array('categories'=>$categoriesView, 'product' => $product));
+      	$categoriesView = $this->view->fetchPartial('layouts/categories', array('categories' => $categories));
+      	$this->view->render('product/view', array('categories'=>$categoriesView, 'product' => $product));
 
         return true;
     }

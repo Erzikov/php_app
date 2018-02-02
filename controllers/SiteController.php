@@ -2,18 +2,10 @@
 namespace controllers;
 
 use models\{Category, Product};
-use components\View;
+use components\BaseController;
 
-Class SiteController
+Class SiteController extends BaseController
 {
-    public $view;
-
-    public function __construct()
-    {
-        $this->view = new View();
-    }
-
-
     public function actionIndex()
     {
         $categories = Category::getAllCategory();

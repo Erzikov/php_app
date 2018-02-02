@@ -2,9 +2,9 @@
 namespace controllers;
 
 use models\User;
-use components\View;
+use components\BaseController;
 
-Class SessionController
+Class SessionController extends BaseController
 {
     public function actionCreate()
     {
@@ -28,9 +28,8 @@ Class SessionController
             }
         }
 
-        $view = new View();
-        $errorsView = $view->fetchPartial('layouts/errors', array('errors' => $errors));
-        $view->render('user/signin', array('errors'=>$errorsView, 'email' => $email, 'password' => $password));
+        $errorsView = $this->view->fetchPartial('layouts/errors', array('errors' => $errors));
+        $this->view->render('user/signin', array('errors'=>$errorsView, 'email' => $email, 'password' => $password));
 
         return true;
     }

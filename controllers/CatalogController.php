@@ -2,9 +2,10 @@
 namespace controllers;
 
 use models\{Category, Product};
-use components\{Pagination, View};
+use components\{BaseController, Pagination};
 
-Class CatalogController
+
+Class CatalogController extends BaseController 
 {
     public function actionIndex()
     {
@@ -13,13 +14,11 @@ Class CatalogController
         $categories = Category::getAllCategory();
         $products = Product::getLatestProducts($limit);
         
-        $view = new View();
-
         $title = 'Каталог';
-        $productsView = $view->fetchPartial('product/index', array('products' => $products));
-        $categoriesView = $view->fetchPartial('layouts/categories', array('categories' => $categories));
+        $productsView = $this->view->fetchPartial('product/index', array('products' => $products));
+        $categoriesView = $this->view->fetchPartial('layouts/categories', array('categories' => $categories));
 
-        $view->render('catalog/index', array('products' => $productsView, 'categories' => $categoriesView, 'title' => $title));
+        $this->view->render('catalog/index', array('products' => $productsView, 'categories' => $categoriesView, 'title' => $title));
 
         return true;
 	}
@@ -33,12 +32,10 @@ Class CatalogController
         $products = Product::getLatestProductsByCategory($categoryId, $page, $limit);
         $pagination = new Pagination($total, $page, $limit, 'page-');	
 
-        $view = new View();
+        $categoriesView = $this->view->fetchPartial('layouts/categories', array('categories' => $categories, 'categoryId' => $categoryId));
+        $productsView = $this->view->fetchPartial('product/index', array('products' => $products));
 
-        $categoriesView = $view->fetchPartial('layouts/categories', array('categories' => $categories, 'categoryId' => $categoryId));
-        $productsView = $view->fetchPartial('product/index', array('products' => $products));
-
-        $view->render('catalog/category', array('categories' => $categoriesView, 'products' => $productsView, 'pagination' => $pagination));
+        $this->view->render('catalog/category', array('categories' => $categoriesView, 'products' => $productsView, 'pagination' => $pagination));
 
         return true;
     }

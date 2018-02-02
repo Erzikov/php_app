@@ -5,18 +5,11 @@ use models\Cart;
 use models\Product;
 use models\User;
 use models\Order;
-use components\View;
+use components\BaseController;
 
     
-Class CartController
+Class CartController extends BaseController
 {
-    private $view;
-
-    public function __construct()
-    {
-        $this->view = new View;
-    }
-
     public function actionIndex() 
     {
         $content = $this->getPartialCart();
