@@ -1,5 +1,7 @@
 <?php 
-namespace components; 
+namespace components;
+
+use models\User; 
 
 class AdminBaseController
 {   
@@ -7,7 +9,7 @@ class AdminBaseController
 
     public function __construct()
     {
-        if (isset($_SESSION['user']) && $_SESSION['user']['admin']) {
+        if (User::isAdmin()) {
             $this->view = new View('admin/main');
         } else {
             echo "Недостаточно прав";

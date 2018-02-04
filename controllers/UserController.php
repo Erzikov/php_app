@@ -56,7 +56,7 @@ Class UserController extends BaseController
 
     public function actionView()
     {
-        if (isset($_SESSION['user'])) {
+        if (!User::isGuest()) {
             $user = $_SESSION['user'];
 
             $this->view->render('user/view', array('user' => $user));
@@ -67,14 +67,9 @@ Class UserController extends BaseController
         return true;
     }
 
-    public function actionDestroy()
-    {
-        return true;
-    }
-
     public function actionEdit()
     {
-        if (isset($_SESSION['user'])) {
+        if (!User::isGuest()) {
             $id = $_SESSION['user']['id'];
             $user = User::getUserById($id);
             $errors = array();

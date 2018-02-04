@@ -35,8 +35,7 @@ Class CartController extends BaseController
 
     public function actionCheckout()
     {
-        if (!empty($_SESSION['order'])) {
-            //Корзина не пуста
+        if (!Cart::isEmptyCart()) {
             $errors = array();
 
             if (isset($_POST['submit'])) {
@@ -68,7 +67,6 @@ Class CartController extends BaseController
             $this->view->render('cart/checkout', array('errors' => $errorsView));
             
         } else {
-            //Корзина пуста
             header('Location: /');
         }
 
@@ -77,7 +75,7 @@ Class CartController extends BaseController
 
     private function getPartialCart()
     {   
-        if (empty($_SESSION['order'])) {
+        if (Cart::isEmptyCart()) {
             return $this->view->fetchPartial('cart/emptyCart');
         } else {
             $orderProductsIds = array_keys($_SESSION['order']);

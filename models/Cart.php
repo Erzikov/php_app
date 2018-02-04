@@ -65,4 +65,13 @@ Class Cart
 
         return true;
     }
+
+    public static function isEmptyCart()
+    {
+        if (!isset($_SESSION['order']) || empty($_SESSION['order'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 } 

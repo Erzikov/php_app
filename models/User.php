@@ -82,7 +82,7 @@ Class User
         return $result;
     }
 
-    public static function updateOrder($id, $order)
+    public static function saveOrder($id, $order)
     {
         $db = Database::getConnection();
         $query = $db->prepare('UPDATE users SET order_products = :order WHERE id = :id');
@@ -122,6 +122,45 @@ Class User
         $user = $query->fetch();
 
         return $user;       
+    }
+
+    public static function getAllUsers()
+    {
+        $db = Database::getConnection();
+        $query = $db->query('SELECT id, name, email, number, admin FROM users');
+
+        $result = $query->fetchAll();
+        return $result;
+    }
+
+    public static function deleteUser($id)
+    {
+        $db = Database::getConnection();
+        $query = $db->prepare('DELETE FROM users WHERE id = :id');
+        $query->execute(array('id'=>$id));
+        $result = $query->fetch();
+        
+        return $result;
+    }
+
+    public static function isGuest()
+    {
+        if (isset($_SESSION['user'])) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static function isAdmin()
+    {
+        if (!self::isGuest()) {
+            if ($_SESSION['user']['admin']) {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 }
 	

@@ -37,11 +37,13 @@ Class SessionController extends BaseController
     public function actionDestroy()
     {
         $id = $_SESSION['user']['id'];
-        echo $id;
         $order = $_SESSION['order'];
-        User::updateOrder($id, $order);
+
+        User::saveOrder($id, $order);
+
         unset($_SESSION['user']);
         unset($_SESSION['order']);
+        
         header('Location: /');
     }
 }
