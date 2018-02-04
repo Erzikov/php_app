@@ -1,7 +1,9 @@
 <?php 
 return array(
+    
+    'admin/deleteUser/([0-9]+)$'      => 'admin/deleteUser/$1',
+    'admin'                           => 'admin/users',
 
-    'admin'                           => 'admin/index',
     'profile/edit'                    => 'user/edit',
     'profile'                         => 'user/view',
 

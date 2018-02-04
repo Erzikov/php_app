@@ -1151,9 +1151,9 @@ h2.title {
 
 
 
-/*************************
+/*******************************
 *******Product Details CSS******
-**************************/
+********************************/
 
 .product-details{
 	overflow:hidden;
@@ -2371,3 +2371,22 @@ a.deleteItem:visited {
 }
 
 
+/*******************************
+******* Admin Users CSS ********
+********************************/
+a.deleteUser {
+  color: #333;
+  width: 1000px;
+}
+
+a.deleteUser:active {
+  color: #333;
+}
+
+a.deleteUser:hover {
+  color: #333;
+}
+
+a.deleteUser:visited {
+  color: #333;
+}
