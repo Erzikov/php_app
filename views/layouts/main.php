@@ -65,7 +65,7 @@
                                     <?php endif; ?>    
                                     <li>
                                         <a href="/cart"><i class="fa fa-shopping-cart"></i>
-                                         Корзина (<span id="countProducts"><?= models\Cart::countItems() ?></span>)
+                                         Корзина <span id="countProducts" class="badge"><?= models\Cart::countItems() ?></span>
                                         </a>
                                     </li>
                                     <?php if (isset($_SESSION['user'])): ?>
