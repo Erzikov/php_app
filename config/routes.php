@@ -1,8 +1,12 @@
 <?php 
 return array(
-    
+
+    'admin/users'                     => 'adminUsers/index',
     'admin/deleteUser/([0-9]+)$'      => 'admin/deleteUser/$1',
-    'admin'                           => 'admin/users',
+
+    'admin/products/create'           => 'adminProducts/create',
+    'admin/products/page-([0-9]+)$'   => 'adminProducts/index/$1',
+    'admin/products'                  => 'adminProducts/index',
 
     'profile/edit'                    => 'user/edit',
     'profile'                         => 'user/view',

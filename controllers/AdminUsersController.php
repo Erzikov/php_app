@@ -4,9 +4,9 @@ namespace controllers;
 use components\AdminBaseController;
 use models\User;
 
-class AdminController extends AdminBaseController
+class AdminUsersController extends AdminBaseController
 {
-    public function actionUsers()
+    public function actionIndex()
     {
         $content = $this->getPartialUsers();
         $this->view->renderPartial('admin/main', array('content' => $content));
@@ -25,6 +25,6 @@ class AdminController extends AdminBaseController
     private function getPartialUsers()
     {
         $users = User::getAllUsers();
-        return $this->view->fetchPartial('admin/users', array('users' => $users));
+        return $this->view->fetchPartial('admin/users/index', array('users' => $users));
     }
 }

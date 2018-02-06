@@ -18,6 +18,20 @@ Class Product
 
         return $product;
     }
+
+    public static function getProducts($page, $count = self::SHOW_BY_DEFAULT)
+    {
+        $db = Database::getConnection();
+        $offset = ($page-1)*$count;
+
+        $query = $db->prepare('SELECT * FROM products ORDER BY id DESC LIMIT :count OFFSET :offset');
+        $query->execute(array('count' => $count, 'offset' => $offset));
+
+        $result = $query->fetchAll();
+
+        return $result;
+    }
+
     public static function getLatestProducts($count = self::SHOW_BY_DEFAULT)
     {
         $db = Database::getConnection();
@@ -29,14 +43,12 @@ Class Product
     } 
 
 
+
     public static function getLatestProductsByCategory($categoryId, $page, $count = self::SHOW_BY_DEFAULT )
     {
         $db = Database::getConnection();
 
         $offset = ($page-1)*$count;
-
-        // echo "<br>";
-        // echo $offset;
 
         $query = $db->prepare('SELECT * FROM products WHERE status=true AND category_id=:categoryId ORDER BY id DESC LIMIT :count OFFSET :offset');
         $query->execute(array('categoryId'=>$categoryId, 'count' => $count, 'offset' => $offset));
@@ -44,17 +56,6 @@ Class Product
         $products = $query->fetchAll();
 
         return $products;
-    }
-
-    public static function getTotalProductInCategory($categoryId)
-    {
-        $db = Database::getConnection();
-        $query = $db->prepare('SELECT count(name) AS count FROM products WHERE status=true AND category_id=:category_id');
-        $query->execute(array('category_id' => $categoryId));
-
-        $total = $query->fetch();
-
-        return $total['count'];
     }
 
     public static function getProductsByIds($ids)
@@ -69,4 +70,53 @@ Class Product
 
         return $items;
     }
+
+    public static function getTotalProductInCategory($categoryId)
+    {
+        $db = Database::getConnection();
+        $query = $db->prepare('SELECT count(name) AS count FROM products WHERE status=true AND category_id=:category_id');
+        $query->execute(array('category_id' => $categoryId));
+
+        $total = $query->fetch();
+
+        return $total['count'];
+    }
+
+
+    public static function getTotalAllProducts()
+    {
+        $db = Database::getConnection();
+        $query = $db->query('SELECT count(name) AS count FROM products');
+
+        $total =$query->fetch();
+        return $total['count'];
+    }
+
+    public static function create($name, $category, $code, $price, $brand, $image, $description, $isNew, $isRecomend, $status)
+    {
+        $db = Database::getConnection();
+        $query = $db->prepare('INSERT INTO products VALUES (result = :result, 
+                                                            category = :category,
+                                                            code = :code,
+                                                            price = :price,
+                                                            brand = :brand,
+                                                            image = :image,
+                                                            description = :description,
+                                                            isNew = :isNew,
+                                                            isRecomend = :isRecomend,
+                                                            status = :status)');
+        $query->execute(array('result' => $result, 
+                              'category' => $category,
+                              'code' => $code,
+                              'price' => $price,
+                              'brand' => $brand,
+                              'image' => $image,
+                              'description' => $description,
+                              'isNew' => $isNew,
+                              'isRecomend' => $isRecomend,
+                              'status' => $status));
+        $result = $query->fetch();
+        return $result;
+    }
+
 }

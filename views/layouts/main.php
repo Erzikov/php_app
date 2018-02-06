@@ -60,15 +60,15 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">                               
-                                    <?php if (isset($_SESSION['user'])&& $_SESSION['user']['admin']): ?>
-                                        <li><a href="/admin"><i class="fa fa-diamond"></i>Админка</a></li>
+                                    <?php if (!models\User::isGuest()&&(models\User::isAdmin())): ?>
+                                        <li><a href="/admin/users"><i class="fa fa-diamond"></i>Админка</a></li>
                                     <?php endif; ?>    
                                     <li>
                                         <a href="/cart"><i class="fa fa-shopping-cart"></i>
                                          Корзина <span id="countProducts" class="badge"><?= models\Cart::countItems() ?></span>
                                         </a>
                                     </li>
-                                    <?php if (isset($_SESSION['user'])): ?>
+                                    <?php if (!models\User::isGuest()): ?>
                                         <li><a href="/profile"><i class="fa fa-user"></i>Профиль</a></li>
                                         <li><a href="/signout"><i class="fa fa-sign-out"></i> Выход</a></li>
                                     <?php else: ?>

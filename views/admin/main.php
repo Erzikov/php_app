@@ -77,7 +77,7 @@
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
                                     <li><a href="#">Заказы</a></li>
-                                    <li><a href="#">Пользователи</a></li> 
+                                    <li><a href="/admin/users">Пользователи</a></li> 
                                     <li class="dropdown"><a href="#">Категории<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
                                             <li><a href="#">Создать категорию</a></li> 
@@ -86,8 +86,8 @@
                                     </li>
                                     <li class="dropdown"><a href="#">Товары<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a href="#">Создать товар</a></li> 
-                                            <li><a href="#">Все товары</a></li>
+                                            <li><a href="/admin/products/create">Создать товар</a></li> 
+                                            <li><a href="/admin/products">Все товары</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="/">Магазин</a></li>
