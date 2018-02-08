@@ -12,7 +12,7 @@ Class AdminProductsController extends AdminBaseController
         $limit = 3;
         $total = Product::getTotalAllProducts();
 
-        $products = Product::getProducts($page, $limit);
+        $products = Product::getAllProducts($page, $limit);
         $pagination = new Pagination($total, $page, $limit, 'page-');
         
         $this->view->render('admin/products/index', array('products' => $products, 'pagination' => $pagination));
@@ -25,14 +25,13 @@ Class AdminProductsController extends AdminBaseController
 
         $name = '';
         $category = '';
-        $code = '';
         $price = '';
         $brand = '';
-        $image = '';
         $description = '';
+        $image = '';
+        $avability = 0;
         $isNew = 1;
         $isRecomend = 0;
-        $status = 1;
         $errors = array();
         $result = false;
 
@@ -40,25 +39,25 @@ Class AdminProductsController extends AdminBaseController
 
             $name = trim($_POST['name']);
             $category = $_POST['category'];
-            $code = $_POST['code'];
             $price = $_POST['price'];
+            $avability = $_POST['avability'];
             $brand = $_POST['brand'];
             $image = $_POST['image'];
             $description = $_POST['description'];
             $isNew = $_POST['isNew'];
             $isRecomend = $_POST['isRecomend'];
-            $status = $_POST['status'];
 
             if (empty($name)) {
                 $errors[] = "Заполните поле 'Название'!";
             }
 
-            if (empty($code)) {
-                $errors[] = "Заполните поле 'Код товара'!";
-            }
 
             if (empty($price)) {
                 $errors[] = "Заполните поле 'Цена'!";
+            }
+
+            if (empty($avability)) {
+                $errors[] = "Укажите наличие товара на складе!";
             }
 
             if (empty($brand)) {
@@ -82,14 +81,13 @@ Class AdminProductsController extends AdminBaseController
 
         $this->view->render('admin/products/create', array('result' => $result, 
                                                            'category' => $category,
-                                                           'code' => $code,
                                                            'price' => $price,
+                                                           'avability' => $avability,
                                                            'brand' => $brand,
                                                            'image' => $image,
                                                            'description' => $description,
                                                            'isNew' => $isNew,
-                                                           'isRecomend' => $isRecomend,
-                                                           'status' => $status));
+                                                           'isRecomend' => $isRecomend));
 
         return true;
     }
