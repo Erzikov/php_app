@@ -1090,6 +1090,10 @@ h2.title {
 *******Shop CSS******
 **************************/
 
+.product-img {
+  width: 100px;
+  height: 200px;
+}
 
 #advertisement {
   padding-bottom: 45px;

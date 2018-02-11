@@ -2,54 +2,59 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-5 col-sm-offset-3 ">
-<!--                 <?php if ($result): ?>
+                <?php if ($result): ?>
                     <div class="alert alert-success" role="alert">
-                        <p>Данные сохранены!</p>
+                        <p>Товар добавлен!</p>
                     </div>
-                <?php else: ?> -->
-                    <h2>Создание товара</h2>
-                    <!-- <?= $errors ?> -->
-                    <form action="#" method="POST">
+                <?php else: ?>
+                    <h2>Добавление товара</h2>
+                    <?= $errors ?>
+                    <form action="#" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label for="name">Название товара</label>
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Название товара">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Название товара" value="<?= $name ?>">
                       </div>
                       <div class="form-group">
                         <label for="#">Категория</label>
-                        <!-- Категория с выпадающим списком -->
+                        <select class="form-control" name='category'>
+                          <?php foreach ($categoryList as $category): ?>
+                            <option value="<?= $category['id'] ?>" name='category'>
+                              <?= $category['name'] ?>
+                            </option>
+                          <?php endforeach; ?>
+                        </select>
                       </div>                       
                       <div class="form-group">
                         <label for="price">Цена товара</label>
-                        <input type="text" name="#" class="form-control" id="price" placeholder="Цена товара">
+                        <input type="text" name="price" class="form-control" id="price" placeholder="Цена товара" value="<?= $price ?>">
                       </div>
                       <div class="form-group">
                         <label for="brand">Брэнд товара</label>
-                        <input type="password" name="brand" class="form-control" id="brand" placeholder="Брэнд">                      
+                        <input type="text" name="brand" class="form-control" id="brand" placeholder="Брэнд" value="<?= $brand ?>">      
                       </div>
                       <div class="form-group">
-                        <label for="image">Изображение товара</label>
-                        <!-- Загрузка изображения -->
+                        <label for="img">Изображение товара</label>
+                        <input type="file" accept="image/*" name="image" id='image' class="form-control" value="<?= $image ?>">
                       </div>
                       <div class="form-group">
                         <label for="description">Описание товара</label>
-                        <textarea name="description" class="form-control" id="description">
-                        </textarea>  
+                        <textarea name="description" class="form-control" id="description" placeholder="Описание"><?= $description ?></textarea>  
                       </div>
                       <div class="form-group">
-                        <input type="checkbox" name="avability" id="avability">
+                        <input type="checkbox" name="avability" id="avability" <?php if ($avability): ?> checked <?php endif ?>>
                         <label for="avability">Наличие на складе</label>
                       </div>
                       <div class="form-group">
-                        <input type="checkbox" name="isNew" id="isNew">
-                        <label for="avability">Новый товар</label>
+                        <input type="checkbox" name="isNew" id="isNew" <?php if ($isNew) : ?> checked <?php endif ?>>
+                        <label for="isNew">Новый товар</label>
                       </div>
                       <div class="form-group">
-                        <input type="checkbox" name="isRecommend" id="isRecommend">
-                        <label for="isRecommend">Рекомендованный</label>
+                        <input type="checkbox" name="isRecommended" id="isRecommended" <?php if ($isRecommended) : ?> checked <?php endif ?>> 
+                        <label for="isRecommended">Рекомендованный</label>
                       </div>
                       <button type="submit" name="submit" class="btn btn-warning">Сохранить</button>
                     </form>
-<!--                 <?php endif;?> -->
+                <?php endif;?>
             </div>
         </div>
     </div>

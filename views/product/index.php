@@ -5,7 +5,9 @@
             <div class="product-image-wrapper">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <a href="/products/<?= $product['id'] ?>"><img src="/template/images/home/product1.jpg" alt="" /></a>
+                        <a href="/products/<?= $product['id'] ?>">
+                            <img class='product-img' src="/template/images/products/<?= $product['id'] ?>.jpg" alt="" />
+                        </a>
                         <h2><?= $product['price'] ?> $</h2>
                         <p><?= $product['name'] ?></p>
                         <a href="#" id="inCart" class="btn btn-default add-to-cart" data-id="<?= $product['id'] ?>">

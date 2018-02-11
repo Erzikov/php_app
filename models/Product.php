@@ -92,31 +92,32 @@ Class Product
         return $total['count'];
     }
 
-    public static function create($name, $category, $price, $avability, $brand, $image, $description, $isNew, $isRecomend)
+    public static function create($name, $category, $price, $avability, $brand, $description, $isNew, $isRecommended)
     {
         $db = Database::getConnection();
-        $query = $db->prepare('INSERT INTO products VALUES (result = :result, 
-                                                            category = :category,
-                                                            price = :price,
-                                                            avability = :avability,
-                                                            brand = :brand,
-                                                            image = :image,
-                                                            description = :description,
-                                                            isNew = :isNew,
-                                                            isRecomend = :isRecomend,
-                                                            status = :status)');
-        $query->execute(array('result' => $result, 
-                              'category' => $category,
+        $query = $db->prepare('INSERT INTO products(name, category_id, price, avability, brand, description, is_new, is_recommended)
+                               VALUES (:name, :category_id, :price, :avability, :brand, :description, :is_new, :is_recommended)');
+        $query->execute(array('name' => $name, 
+                              'category_id' => $category,
                               'price' => $price,
                               'avability' => $avability,
                               'brand' => $brand,
-                              'image' => $image,
                               'description' => $description,
-                              'isNew' => $isNew,
-                              'isRecomend' => $isRecomend));
+                              'is_new' => $isNew,
+                              'is_recommended' => $isRecommended));
         
-        $result = $query->fetch();
+        $result = self::getLastId(); 
+
         return $result;
+    }
+
+
+    private static function getLastId()
+    {
+        $db = Database::getConnection();
+        $query =  $db->query("SELECT MAX(id) as id FROM products");
+        $last_id = $query->fetch();
+        return $last_id['id'];
     }
 
 }

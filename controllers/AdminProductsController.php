@@ -3,7 +3,7 @@ namespace controllers;
 
 use components\Pagination;
 use components\AdminBaseController;
-use models\Product;
+use models\{Product, Category};
 
 Class AdminProductsController extends AdminBaseController
 {
@@ -22,50 +22,37 @@ Class AdminProductsController extends AdminBaseController
 
     public function actionCreate()
     {
-
         $name = '';
         $category = '';
         $price = '';
         $brand = '';
         $description = '';
-        $image = '';
-        $avability = 0;
-        $isNew = 1;
-        $isRecomend = 0;
+        $avability = false;
+        $isNew = false;
+        $isRecommended = false;
         $errors = array();
         $result = false;
 
-        if (isset($_POST['submit'])) {
-
+        if (isset($_POST['submit'])) {        
             $name = trim($_POST['name']);
             $category = $_POST['category'];
             $price = $_POST['price'];
-            $avability = $_POST['avability'];
             $brand = $_POST['brand'];
-            $image = $_POST['image'];
             $description = $_POST['description'];
-            $isNew = $_POST['isNew'];
-            $isRecomend = $_POST['isRecomend'];
+            $avability = isset($_POST['avability']);
+            $isNew = isset($_POST['isNew']);
+            $isRecommended = isset($_POST['isRecommended']);
 
             if (empty($name)) {
                 $errors[] = "Заполните поле 'Название'!";
             }
 
-
             if (empty($price)) {
                 $errors[] = "Заполните поле 'Цена'!";
             }
 
-            if (empty($avability)) {
-                $errors[] = "Укажите наличие товара на складе!";
-            }
-
             if (empty($brand)) {
                 $errors[] = "Заполните поле 'Брэнд'!";
-            }
-
-            if (empty($image)) {
-                $errors[] = "Заполните поле 'Изображение'!";
             }
 
             if (empty($description)) {
@@ -73,22 +60,30 @@ Class AdminProductsController extends AdminBaseController
             }
 
             if (empty($errors)) {
-               $result = Product::create($name, $category, $code, $price, $brand, $image, $description, $isNew, $isRecomend, $status);
+               $id = Product::create($name, $category, $price, $avability, $brand, $description, $isNew, $isRecommended);
+
+               $file_tmp = $_FILES['image']['tmp_name'];
+               if (is_uploaded_file($file_tmp)) {
+                    move_uploaded_file($file_tmp, './template/images/products/'.$id.".jpg");
+                    echo "Успешно!";
+               }
             }
         }
 
+        $categoryList = Category::getAllCategory();
         $errorsView = $this->view->fetchPartial('layouts/errors', array('errors'=>$errors));
 
-        $this->view->render('admin/products/create', array('result' => $result, 
+        $this->view->render('admin/products/create', array('result' => $result,
+                                                           'errors' => $errorsView,
+                                                           'name' => $name,
                                                            'category' => $category,
                                                            'price' => $price,
                                                            'avability' => $avability,
                                                            'brand' => $brand,
-                                                           'image' => $image,
                                                            'description' => $description,
                                                            'isNew' => $isNew,
-                                                           'isRecomend' => $isRecomend));
-
+                                                           'isRecommended' => $isRecommended,
+                                                           'categoryList' => $categoryList));
         return true;
     }
 }

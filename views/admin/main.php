@@ -80,13 +80,13 @@
                                     <li><a href="/admin/users">Пользователи</a></li> 
                                     <li class="dropdown"><a href="#">Категории<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a href="#">Создать категорию</a></li> 
+                                            <li><a href="#">Добавить категорию</a></li> 
                                             <li><a href="#">Все категории</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown"><a href="#">Товары<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a href="/admin/products/create">Создать товар</a></li> 
+                                            <li><a href="/admin/products/create">Добавить товар</a></li> 
                                             <li><a href="/admin/products">Все товары</a></li>
                                         </ul>
                                     </li>
