@@ -39,12 +39,11 @@ $(document).ready(function(){
 
 /*delete item from cart*/
 
-function deleteProduct(i){
+function deleteCartProduct(i){
     id = $(i).attr('data-id');
     $.post("cart/deleteProduct/" + id, {}, function(data){
         $("#main").html(data);
         count = $("#countProducts").text();
         $("#countProducts").html(--count);
     });
-    return false;
 };

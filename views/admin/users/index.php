@@ -16,7 +16,7 @@
                         <td><?= $user['email'] ?></td>
                         <td><?= $user['number'] ?></td>
                         <td class='text-center'>
-                            <a href="#" onclick="deleteUser(this)" class="deleteUser" data-id="<?= $user['id'] ?>" >
+                            <a href="#" onclick="deleteUser(this); return false;" class="icon" data-id="<?= $user['id'] ?>" >
                                 <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                             </a>
                         </td>

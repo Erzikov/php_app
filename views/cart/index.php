@@ -23,7 +23,7 @@
                                     <td class="price"><?= $product['price'] ?>$</td>
                                     <td class="count"><?= $_SESSION['order'][$product['id']] ?></td>
                                     <td>
-                                        <a href="#" onclick="deleteProduct(this)" class="deleteItem" data-id="<?= $product['id'] ?>" >
+                                        <a href="#" onclick="deleteCartProduct(this); return false;" class="deleteItem" data-id="<?= $product['id'] ?>" >
                                             <i class="fa fa-times" aria-hidden="true"></i>
                                         </a>
                                     </td>
