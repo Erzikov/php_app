@@ -120,4 +120,15 @@ Class Product
         return $last_id['id'];
     }
 
+    public static function getImgUrl($id)
+    {
+        $file = '/template/images/products/'.$id.'.jpg';
+        $default = '/template/images/products/default.jpg';
+
+        if (file_exists("." . $file)) {
+            return $file;
+        } else {
+            return $default;
+        }
+    }
 }

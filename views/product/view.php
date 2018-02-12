@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="view-product">
-                                <img src="/template/images/product-details/1.jpg" alt="" />
+                                <img src="<?= models\Product::getImgUrl($product['id']) ?>" alt="" />
                             </div>
                         </div>
                         <div class="col-sm-7">
@@ -18,18 +18,13 @@
                                     <img src="/template/images/product-details/new.jpg" class="newarrival" alt="" />
                                 <?php endif;?>
                                 <h2><?= $product['name'] ?></h2>
-                                <p>Код товара: <?= $product['code'] ?></p>
                                 <span>
                                     <span>US $<?= $product['price'] ?></span>
-                                <!--<label>Количество:</label>
-                                    <input type="text" value="3" /> -->
                                     <br>
                                     <a href="#" id="inCart" class="btn btn-default add-to-cart" data-id="<?= $product['id'] ?>">
                                         <i class="fa fa-shopping-cart"></i>В корзину
                                     </a>
                                 </span>
-                                <p><b>Наличие:</b> На складе</p>
-                                <p><b>Состояние:</b> Новое</p>
                                 <p><b>Производитель:</b> <?= $product['brand'] ?></p>
                             </div><!--/product-information-->
                         </div>

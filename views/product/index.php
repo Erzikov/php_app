@@ -6,7 +6,7 @@
                 <div class="single-products">
                     <div class="productinfo text-center">
                         <a href="/products/<?= $product['id'] ?>">
-                            <img class='product-img' src="/template/images/products/<?= $product['id'] ?>.jpg" alt="" />
+                            <img data-src="holder.js/300x200"  class='product-img' src= '<?= models\Product::getImgUrl($product['id']) ?>' alt="" />
                         </a>
                         <h2><?= $product['price'] ?> $</h2>
                         <p><?= $product['name'] ?></p>
