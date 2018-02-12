@@ -9,7 +9,7 @@ Class AdminProductsController extends AdminBaseController
 {
     public function actionIndex($page = 1)
     {
-        $limit = 3;
+        $limit = 5;
         $total = Product::getTotalAllProducts();
 
         $products = Product::getAllProducts($page, $limit);
@@ -62,11 +62,13 @@ Class AdminProductsController extends AdminBaseController
             if (empty($errors)) {
                $id = Product::create($name, $category, $price, $avability, $brand, $description, $isNew, $isRecommended);
 
+               $result = $id;
+
                $file_tmp = $_FILES['image']['tmp_name'];
                if (is_uploaded_file($file_tmp)) {
                     move_uploaded_file($file_tmp, './template/images/products/'.$id.".jpg");
-                    echo "Успешно!";
                }
+
             }
         }
 
@@ -85,5 +87,18 @@ Class AdminProductsController extends AdminBaseController
                                                            'isRecommended' => $isRecommended,
                                                            'categoryList' => $categoryList));
         return true;
+    }
+
+    public function actionDelete($id)
+    {
+      echo 'Hello, from delete product action!';
+
+      return true;
+    }
+
+    public function actionEdit()
+    {
+      echo "Hello from edit product action!";
+      return true;
     }
 }

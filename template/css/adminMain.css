@@ -2374,19 +2374,19 @@ a.deleteItem:visited {
 /*******************************
 ******* Admin Users CSS ********
 ********************************/
-a.deleteUser {
+a.icon {
   color: #333;
   width: 1000px;
 }
 
-a.deleteUser:active {
+a.icon:active {
   color: #333;
 }
 
-a.deleteUser:hover {
+a.icon:hover {
   color: #333;
 }
 
-a.deleteUser:visited {
+a.icon:visited {
   color: #333;
 }

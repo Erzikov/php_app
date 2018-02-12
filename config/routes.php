@@ -1,11 +1,13 @@
 <?php 
 return array(
 
+    'admin/users/delete/([0-9]+)$'    => 'adminUsers/deleteUser/$1',
     'admin/users'                     => 'adminUsers/index',
-    'admin/deleteUser/([0-9]+)$'      => 'admin/deleteUser/$1',
 
-    'admin/products/create'           => 'adminProducts/create',
     'admin/products/page-([0-9]+)$'   => 'adminProducts/index/$1',
+    'admin/products/delete/([0-9]+)$' => 'adminProducts/delete/$1',
+    'admin/products/edit/([0-9]+)$'   => 'adminProducts/edit/$1',
+    'admin/products/create'           => 'adminProducts/create',
     'admin/products'                  => 'adminProducts/index',
 
     'profile/edit'                    => 'user/edit',
