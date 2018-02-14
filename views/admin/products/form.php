@@ -7,7 +7,7 @@
                         <p>Товар добавлен!</p>
                     </div>
                 <?php else: ?>
-                    <h2>Добавление товара</h2>
+                    <h2><?= $title ?></h2>
                     <?= $errors ?>
                     <form action="#" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
@@ -18,7 +18,9 @@
                         <label for="#">Категория</label>
                         <select class="form-control" name='category'>
                           <?php foreach ($categoryList as $category): ?>
-                            <option value="<?= $category['id'] ?>" name='category'>
+                            <option value="<?= $category['id'] ?>" 
+                                    name='category' 
+                                    <?php if ($productCategory == $category['id']): ?> selected <?php endif; ?>>
                               <?= $category['name'] ?>
                             </option>
                           <?php endforeach; ?>
@@ -34,7 +36,7 @@
                       </div>
                       <div class="form-group">
                         <label for="img">Изображение товара</label>
-                        <input type="file" accept="image/*" name="image" id='image' class="form-control" value="<?= $image ?>">
+                        <input type="file" accept="image/*" name="image" id='image' class="form-control">
                       </div>
                       <div class="form-group">
                         <label for="description">Описание товара</label>
@@ -49,7 +51,7 @@
                         <label for="isNew">Новый товар</label>
                       </div>
                       <div class="form-group">
-                        <input type="checkbox" name="isRecommended" id="isRecommended" <?php if ($isRecommended) : ?> checked <?php endif ?>> 
+                        <input type="checkbox" name="isRecommended" id="isRecommended" <?php if ($isRecommended): ?> checked <?php endif ?>> 
                         <label for="isRecommended">Рекомендованный</label>
                       </div>
                       <button type="submit" name="submit" class="btn btn-warning">Сохранить</button>

@@ -42,8 +42,6 @@ Class Product
         return $products;
     } 
 
-
-
     public static function getLatestProductsByCategory($categoryId, $page, $count = self::SHOW_BY_DEFAULT )
     {
         $db = Database::getConnection();
@@ -92,19 +90,27 @@ Class Product
         return $total['count'];
     }
 
-    public static function create($name, $category, $price, $avability, $brand, $description, $isNew, $isRecommended)
+    private static function getLastId()
+    {
+        $db = Database::getConnection();
+        $query =  $db->query("SELECT MAX(id) as id FROM products");
+        $last_id = $query->fetch();
+        return $last_id['id'];
+    }
+
+    public static function createProduct($newProduct)
     {
         $db = Database::getConnection();
         $query = $db->prepare('INSERT INTO products(name, category_id, price, avability, brand, description, is_new, is_recommended)
                                VALUES (:name, :category_id, :price, :avability, :brand, :description, :is_new, :is_recommended)');
-        $query->execute(array('name' => $name, 
-                              'category_id' => $category,
-                              'price' => $price,
-                              'avability' => $avability,
-                              'brand' => $brand,
-                              'description' => $description,
-                              'is_new' => $isNew,
-                              'is_recommended' => $isRecommended));
+        $query->execute(array('name' => $newProduct['name'], 
+                              'category_id' => $newProduct['category_id'],
+                              'price' => $newProduct['price'],
+                              'avability' => $newProduct['avability'],
+                              'brand' => $newProduct['brand'],
+                              'description' => $newProduct['description'],
+                              'is_new' => $newProduct['is_new'],
+                              'is_recommended' => $newProduct['is_recommended']));
         
         $result = self::getLastId(); 
 
@@ -112,12 +118,44 @@ Class Product
     }
 
 
-    private static function getLastId()
+
+
+    public static function updateProduct($product)
+    {  
+        $db = Database::getConnection();
+        $query = $db->prepare('UPDATE products
+                               SET name = :name, 
+                                   category_id = :category_id,
+                                   price = :price,
+                                   avability = :avability,
+                                   brand = :brand,
+                                   description = :description, 
+                                   is_new = :is_new, 
+                                   is_recommended = :is_recommended 
+                               WHERE id = :id');
+
+        $result = $query->execute(array('id' => $product['id'],
+                                        'name' => $product['name'], 
+                                        'category_id' => $product['category_id'],
+                                        'price' => $product['price'],
+                                        'avability' => $product['avability'],
+                                        'brand' => $product['brand'],
+                                        'description' => $product['description'],
+                                        'is_new' => $product['is_new'],
+                                        'is_recommended' => $product['is_recommended']));
+        return $result;
+    }
+
+    public static function deleteProduct($id)
     {
         $db = Database::getConnection();
-        $query =  $db->query("SELECT MAX(id) as id FROM products");
-        $last_id = $query->fetch();
-        return $last_id['id'];
+        $query = $db->prepare('DELETE FROM products WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $result = $query->fetch();
+
+        Product::deleteImg($id);
+
+        return $result;
     }
 
     public static function getImgUrl($id)
@@ -129,6 +167,25 @@ Class Product
             return $file;
         } else {
             return $default;
+        }
+    }
+
+    public static function deleteImg($id)
+    {
+        $file = "./template/images/products/".$id.".jpg";
+        if (file_exists($file)) {
+            unlink($file);
+        } else {
+            echo "Файл не найден.";
+        }
+    }
+
+    public static function setImg($id)
+    {
+        $file_tmp = $_FILES['image']['tmp_name'];
+        if (is_uploaded_file($file_tmp)) {
+          self::deleteImg($id);
+          move_uploaded_file($file_tmp, './template/images/products/'.$id.".jpg");
         }
     }
 }
