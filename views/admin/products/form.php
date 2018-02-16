@@ -4,7 +4,7 @@
             <div class="col-sm-5 col-sm-offset-3 ">
                 <?php if ($result): ?>
                     <div class="alert alert-success" role="alert">
-                        <p>Товар добавлен!</p>
+                        <p>Товар сохранён!</p>
                     </div>
                 <?php else: ?>
                     <h2><?= $title ?></h2>

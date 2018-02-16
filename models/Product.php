@@ -175,8 +175,6 @@ Class Product
         $file = "./template/images/products/".$id.".jpg";
         if (file_exists($file)) {
             unlink($file);
-        } else {
-            echo "Файл не найден.";
         }
     }
 

@@ -59,8 +59,7 @@ Class AdminProductsController extends AdminBaseController
           }
 
           if (empty($errors)) {
-            $id = Product::createProduct($newProduct);
-
+            $id = Product::createProduct($newProduct);  
             $result = $id;
 
             Product::setImg($id);
@@ -145,7 +144,6 @@ Class AdminProductsController extends AdminBaseController
         $total = Product::getTotalAllProducts();
 
         $products = Product::getAllProducts($page, $limit);
-
         $pagination = new Pagination($total, $page, $limit, 'page-');
         
         return $this->view->fetchPartial('admin/products/index', array('products' => $products, 'pagination' => $pagination));
