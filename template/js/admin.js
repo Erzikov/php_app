@@ -14,6 +14,14 @@ function deleteProduct(i){
             $("#main").html(data);
         });
     }
-
 };
+
+function deleteCategory(i){
+    if (confirm('Вы уверены?')) {
+        id = $(i).attr('data-id');
+        $.post("/admin/categories/delete/" + id, {}, function(data){
+            $("#main").html(data);
+        });
+    }
+}
 
