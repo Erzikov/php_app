@@ -1,5 +1,9 @@
 <?php 
 return array(
+    'admin/orders/edit/([0-9]+)'        => 'adminOrders/edit/$1',
+    'admin/orders/view/([0-9]+)'        => 'adminOrders/view/$1',
+    'admin/orders'                      => 'adminOrders/index',
+
     'admin/categories/delete/([0-9]+)$' => 'adminCategories/delete/$1',
     'admin/categories/create'           => 'adminCategories/create',
     'admin/categories/edit/([0-9]+)$'   => 'adminCategories/edit/$1',  

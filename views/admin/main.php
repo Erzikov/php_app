@@ -76,7 +76,7 @@
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-                                    <li><a href="#">Заказы</a></li>
+                                    <li><a href="/admin/orders">Заказы</a></li>
                                     <li><a href="/admin/users">Пользователи</a></li> 
                                     <li class="dropdown"><a href="#">Категории<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">

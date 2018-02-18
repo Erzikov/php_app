@@ -25,3 +25,9 @@ function deleteCategory(i){
     }
 }
 
+$( "#status" ).change(function() {
+    status = $(this).val();
+    id = $(this).attr('data-id');
+    $.post('/admin/orders/edit/'+id, {status}, function(data){});
+});
+
