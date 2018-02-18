@@ -20,7 +20,7 @@ Class SessionController extends BaseController
 
             if ($user) {
                 $_SESSION['user'] = $user;
-                $_SESSION['order'] = json_decode($user['order_products'], true);
+                $_SESSION['order'] = json_decode($user['cart'], true);
 
                 header('Location: /');
             } else {
@@ -39,7 +39,7 @@ Class SessionController extends BaseController
         $id = $_SESSION['user']['id'];
         $order = $_SESSION['order'];
 
-        User::saveOrder($id, $order);
+        User::saveCart($id, $order);
 
         unset($_SESSION['user']);
         unset($_SESSION['order']);

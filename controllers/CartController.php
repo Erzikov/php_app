@@ -33,7 +33,7 @@ Class CartController extends BaseController
         return true;
     }
 
-    public function actionCheckout()
+/*    public function actionCheckout()
     {
         if (!Cart::isEmptyCart()) {
             $errors = array();
@@ -65,6 +65,57 @@ Class CartController extends BaseController
 
             $errorsView = $this->view->fetchPartial('layouts/errors', array('errors' => $errors));
             $this->view->render('cart/checkout', array('errors' => $errorsView));
+            
+        } else {
+            header('Location: /');
+        }
+
+        return true;
+    }
+*/
+    public function actionCheckout()
+    {
+        $errors = array();
+        $comment = '';
+        $user_id = null;
+
+        if (User::isGuest()) {
+            $name = '';
+            $number = '';
+        } else {
+            $name = $_SESSION['user']['name'];
+            $number = $_SESSION['user']['number'];
+            $user_id = $_SESSION['user']['id'];
+        }
+
+        if (!Cart::isEmptyCart()) {
+            if (isset($_POST['submit'])) {
+                $name = trim($_POST['name']);
+                $number = trim($_POST['number']);
+                $comment = trim($_POST['comment']);
+                $order = $_SESSION['order'];
+
+                if (empty($name)) {
+                    $errors[] = "Введите имя";
+                }
+
+                if (empty($number)) {
+                    $errors[] = "Введите номер телефона";
+                }
+
+                if (empty($errors)) {
+                    if (Order::createOrder($name, $number, $comment, $order, $user_id)) {   
+                        unset($_SESSION['order']);
+                        $this->view->render('cart/success');
+                        exit;
+                    } else {
+                        echo "<br> Ошибка";
+                    }
+                }
+            }
+
+        $errorsView = $this->view->fetchPartial('layouts/errors', array('errors' => $errors));
+        $this->view->render('cart/checkout', array('errors' => $errorsView, 'name' => $name, 'number' => $number));
             
         } else {
             header('Location: /');

@@ -1,7 +1,7 @@
 <?php
 namespace controllers;
 
-use models\User;
+use models\{User, Order};
 use components\BaseController;
 
 Class UserController extends BaseController
@@ -58,8 +58,9 @@ Class UserController extends BaseController
     {
         if (!User::isGuest()) {
             $user = $_SESSION['user'];
+            $orders = Order::getUsersOrders($user['id']);
 
-            $this->view->render('user/view', array('user' => $user));
+            $this->view->render('user/view', array('user' => $user, 'orders' => $orders));
         } else {
             header('Location: /signin');
         }

@@ -8,12 +8,12 @@
                         <div class="form-group">
                              <label for="exampleInputEmail1">Ваше имя</label>
                              <input type="text" class="form-control" name="name" placeholder="Введите имя"
-                                    value="<?= isset($_SESSION['user']) ? $_SESSION['user']['name'] : "" ?>">
+                                    value="<?= $name ?>">
                         </div>                        
                         <div class="form-group">
                              <label for="exampleInputEmail1">Ваш номер телефона</label>
                              <input type="tel" class="form-control" id="tel" name="number" placeholder="Номер телефона" 
-                                    value="<?= isset($_SESSION['user'])?$_SESSION['user']['number']:"" ?>">
+                                    value="<?= $number ?>">
                         </div>
                          <div class="form-group">
                              <label for="exampleInputPassword1">Комметарий к заказу</label>

@@ -82,14 +82,14 @@ Class User
         return $result;
     }
 
-    public static function saveOrder($id, $order)
+    public static function saveCart($id, $cart)
     {
         $db = Database::getConnection();
-        $query = $db->prepare('UPDATE users SET order_products = :order WHERE id = :id');
+        $query = $db->prepare('UPDATE users SET cart = :cart WHERE id = :id');
 
-        $jsonOrder = json_encode($order);
+        $jsonCart = json_encode($cart);
 
-        $result = $query->execute(array('id' => $id, 'order' => $jsonOrder));
+        $result = $query->execute(array('id' => $id, 'cart' => $jsonCart));
         
         return $result;
     }   
