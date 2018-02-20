@@ -6,6 +6,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a href="/category/<?= $category['id'] ?>" 
+
                             <?php if (isset($categoryId) AND $categoryId == $category['id']): ?> 
                                 class="active" 
                             <?php endif; ?>>
