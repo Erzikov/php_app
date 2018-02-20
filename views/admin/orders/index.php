@@ -1,7 +1,30 @@
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <div class="panel-group category-products">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#"><span style="color: red;">Новые заказы</span></a>
+                                </h4>
+                            </div>
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#">Ожидают отправку</a>
+                                </h4>
+                            </div>
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#">Отправлены</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9" >
                 <table class="table table-bordered">
                     <tr>
                         <th>ID</th>
@@ -25,7 +48,6 @@
                     <?php endforeach; ?>
                 </table> 
             </div>
-            <div class="col-sm-3"></div>
         </div>
     </div>
 </section>
