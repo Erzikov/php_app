@@ -49,18 +49,12 @@ Class UserController extends BaseController
         return true;
     }
 
-    public function actionIndex()
-    {
-        return true;
-    }
-
     public function actionView()
     {
         if (!User::isGuest()) {
             $user = $_SESSION['user'];
-            $orders = Order::getUsersOrders($user['id']);
 
-            $this->view->render('user/view', array('user' => $user, 'orders' => $orders));
+            $this->view->render('user/view', array('user' => $user));
         } else {
             header('Location: /signin');
         }
@@ -124,6 +118,13 @@ Class UserController extends BaseController
             header('Location: /signin');
         }
 
+        return true;
+    }
+
+    public function actionOrders()
+    {
+        $userOrders = Order::getUsersOrders($_SESSION['user']['id']);
+        $this->view->render('user/orders', array('userOrders' => $userOrders));
         return true;
     }
 

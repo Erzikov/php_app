@@ -69,8 +69,20 @@
                                         </a>
                                     </li>
                                     <?php if (!models\User::isGuest()): ?>
-                                        <li><a href="/profile"><i class="fa fa-user"></i>Профиль</a></li>
-                                        <li><a href="/signout"><i class="fa fa-sign-out"></i> Выход</a></li>
+                                        <div class="dropdown nav navbar-nav">
+                                            <li class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <a href="#">
+                                                    <i class="fa fa-user"></i>Личный кабинет<span class="caret"></span>
+                                                </a>
+                                            </li>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">  
+                                              <li><a href="/profile">Профиль</a></li>
+                                              <li><a href="/profile/edit">Редактирование</a></li>
+                                              <li><a href="/orders">Заказы</a></li>
+                                              <li role="separator" class="divider"></li>
+                                              <li><a href="/signout">Выход</a></li>
+                                            </ul>
+                                        </div>
                                     <?php else: ?>
                                         <li><a href="/signin"><i class="fa fa-sign-in"></i> Вход</a></li>
                                         <li><a href="/signup"><i class="fa fa-pencil"></i> Регистрация</a>

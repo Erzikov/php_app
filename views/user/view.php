@@ -1,14 +1,21 @@
-<section id="form">
+<section>
     <div class="container">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4 ">
-                <p><?= $user['name'] ?></p>
-                <p><?= $user['email'] ?></p>
-                <p><?= $user['number']?></p>
-                <?php foreach ($orders as $order): ?>
-                    <p>Статус заказа номер <?= $order['id'] ?>: <?= models\Order::getStatus($order['status']) ?></p>
-                <?php endforeach; ?>
-                <a href="/profile/edit">Редактировать данные</a>
+                <table cellpadding='5'>
+                    <tr>
+                        <th>Имя:</th>
+                        <td><?= $user['name'] ?></td>
+                    </tr>
+                    <tr>
+                        <th>Телефон:</th>
+                        <td><?= $user['number'] ?></td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td><?= $user['email'] ?></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

@@ -20,6 +20,8 @@ return array(
     
     'profile/edit'                      => 'user/edit',
     'profile'                           => 'user/view',
+
+    'orders'                            => 'user/orders',
     
     'signup'                            => 'user/create',
     'signin'                            => 'session/create',
