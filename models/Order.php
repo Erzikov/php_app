@@ -27,7 +27,7 @@ Class Order
     public static function getAllOrders()
     {
     	$db = Database::getConnection();
-    	$query = $db->query("SELECT * FROM order_products ORDER BY date ASC");
+    	$query = $db->query("SELECT * FROM order_products ORDER BY date DESC");
     	$result = $query->fetchAll();
 
     	return $result;
@@ -36,7 +36,7 @@ Class Order
     public static function getUsersOrders($id)
     {
         $db = Database::getConnection();
-        $query = $db->prepare("SELECT * FROM order_products WHERE user_id = :id");
+        $query = $db->prepare("SELECT * FROM order_products WHERE user_id = :id AND status < 3");
         $query->execute(array('id' => $id));
         $result = $query->fetchAll();
 
@@ -58,6 +58,16 @@ Class Order
         return self::STATUSES[$status];
     }
 
+    public static function getOrdersByStatus($status)
+    {
+        $db = Database::getConnection();
+        $query = $db->prepare("SELECT * FROM order_products WHERE status = :status");
+        $query->execute(array('status' => $status));
+        $result = $query->fetchAll();
+
+        return $result;
+    }
+
     public static function updateOrderStatus($id, $status)
     {
         $db = Database::getConnection();
@@ -65,5 +75,14 @@ Class Order
         $result = $query->execute(array('status' => $status, 'id' => $id));
         
         return $result;
-    }   
+    }
+
+    public static function deleteOrder($id)
+    {
+        $db = Database::getConnection();
+        $query = $db->prepare("DELETE FROM order_products WHERE id = :id");
+        $result = $query->execute(array('id' => $id));
+
+        return $result;
+    }
 }

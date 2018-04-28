@@ -28,51 +28,12 @@ Class CartController extends BaseController
     public function actionDeleteProduct($id)
     {   
         Cart::deleteItem($id);
-        echo $this->getPartialCart();
+        
+        // echo $this->getPartialCart();
         
         return true;
     }
 
-/*    public function actionCheckout()
-    {
-        if (!Cart::isEmptyCart()) {
-            $errors = array();
-
-            if (isset($_POST['submit'])) {
-                $name = trim($_POST['name']);
-                $number = trim($_POST['number']);
-                $comment = trim($_POST['comment']);
-                $order = $_SESSION['order'];
-
-                if (empty($name)) {
-                    $errors[] = "Введите имя";
-                }
-
-                if (empty($number)) {
-                    $errors[] = "Введите номер телефона";
-                }
-
-                if (empty($errors)) {
-                    if (Order::createOrder($name, $number, $comment, $order)) {   
-                        unset($_SESSION['order']);
-                        $this->view->render('cart/success');
-                        exit;
-                    } else {
-                        echo "<br> Ошибка";
-                    }
-                }
-            } 
-
-            $errorsView = $this->view->fetchPartial('layouts/errors', array('errors' => $errors));
-            $this->view->render('cart/checkout', array('errors' => $errorsView));
-            
-        } else {
-            header('Location: /');
-        }
-
-        return true;
-    }
-*/
     public function actionCheckout()
     {
         $errors = array();

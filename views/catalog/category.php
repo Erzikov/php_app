@@ -6,8 +6,10 @@
             </div>
             <div class="col-sm-9 padding-right">
                 <?= $products ?>
-                <?= $pagination->get(); ?>
+                <div class="text-center">
+                    <?= $pagination->get(); ?>
+                </div>
             </div>
         </div>
     </div>
-</section>
+</section>s

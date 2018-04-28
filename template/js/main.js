@@ -27,6 +27,8 @@ $(document).ready(function(){
             zIndex: 2147483647 // Z-Index for the overlay
         });
     });
+    
+    $("[data-status = 2]").removeAttr("disabled");
 
     $(".add-to-cart").click(function(){
         id = $(this).attr("data-id");
@@ -37,13 +39,56 @@ $(document).ready(function(){
     });
 });
 
-/*delete item from cart*/
+// Удаление продукта из корзины
 
-function deleteCartProduct(i){
-    id = $(i).attr('data-id');
-    $.post("cart/deleteProduct/" + id, {}, function(data){
-        $("#main").html(data);
-        count = $("#countProducts").text();
-        $("#countProducts").html(--count);
-    });
+function deleteCartProduct(i) {
+  var id = i.getAttribute('data-id');
+  var item = i.parentNode.parentNode;
+  var itemPrice = parseInt( item.getElementsByClassName('price')[0].innerText ); 
+
+  $.post('cart/deleteProduct/' + id, {}, function(data){
+    refreshItemCount(item);
+    refreshTotalPrice(itemPrice);
+    refreshTotalCount();    
+  });
 };
+
+function refreshItemCount(item) {
+  var countElem = item.getElementsByClassName('count')[0];
+  var count = countElem.innerText;
+
+  if (count > 1) {
+      countElem.innerText = --count;
+  } else {
+      item.remove();
+  }
+}
+
+function refreshTotalPrice(itemPrice) {
+  var totalPriceElem = document.getElementById('total-price'); 
+  var totalPrice = totalPriceElem.innerText;
+
+  totalPriceElem.innerText = totalPrice - itemPrice;
+}
+
+function refreshTotalCount() {
+  var totalCountElem = document.getElementById('countProducts');
+  var totalCount = totalCountElem.innerText;
+  var emptyElem = document.getElementById('emptyCart');
+  var mainElem = document.getElementById('main');
+
+  totalCountElem.innerText = --totalCount;
+  
+  if (totalCount == 0) {           
+    emptyElem.hidden = false; 
+    mainElem.innerHTML = emptyElem.outerHTML;
+  }
+}
+
+function confirmOrder(i){
+  var id = i.getAttribute('data-id');
+  var order = i.parentNode;
+  $.post('orders/edit/' + id, {}, function(data){
+      order.remove();
+  })
+}

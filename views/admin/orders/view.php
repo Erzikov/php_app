@@ -51,7 +51,7 @@
                             <td class="id" ><?= $product['id'] ?></td>
                             <td class="name"><?= $product['name'] ?></td>
                             <td class="price"><?= $product['price'] ?>$</td>
-                            <td class="count">test</td>
+                            <td class="count"><?= $count[$product['id']] ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

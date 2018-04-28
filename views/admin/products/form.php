@@ -47,12 +47,12 @@
                         <label for="avability">Наличие на складе</label>
                       </div>
                       <div class="form-group">
-                        <input type="checkbox" name="isNew" id="isNew" <?php if ($isNew) : ?> checked <?php endif ?>>
-                        <label for="isNew">Новый товар</label>
+                        <input type="checkbox" name="is_new" id="is_new" <?php if ($is_new) : ?> checked <?php endif ?>>
+                        <label for="is_new">Новый товар</label>
                       </div>
                       <div class="form-group">
-                        <input type="checkbox" name="isRecommended" id="isRecommended" <?php if ($isRecommended): ?> checked <?php endif ?>> 
-                        <label for="isRecommended">Рекомендованный</label>
+                        <input type="checkbox" name="is_recommended" id="is_recommended" <?php if ($is_recommended): ?> checked <?php endif ?>> 
+                        <label for="is_recommended">Рекомендованный</label>
                       </div>
                       <button type="submit" name="submit" class="btn btn-warning">Сохранить</button>
                     </form>

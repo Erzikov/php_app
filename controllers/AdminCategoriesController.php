@@ -1,15 +1,20 @@
 <?php 
 namespace controllers;
 
-use components\AdminBaseController;
+use components\{AdminBaseController, Pagination};
 use models\Category;
 
 class AdminCategoriesController extends AdminBaseController
 {
-    public function actionIndex()
+    public function actionIndex(int $currentPage = 1)
     {
-        $content = $this->getCategoryIndexPartial();
-        $this->view->renderPartial('admin/main', ['content' =>$content]);
+
+        $total = Category::getTotalCategory();
+        $limit = 6;
+        $pagination = new Pagination($total, $currentPage, $limit, 'page-');
+        $categories = Category::getCategoryByPage($currentPage, $limit);
+        $this->view->render('admin/categories/index', array('categories' => $categories, 'pagination' => $pagination));
+
         return true;
     }
 
@@ -74,22 +79,12 @@ class AdminCategoriesController extends AdminBaseController
     public function actionDelete($id)
     {
         Category::deleteCategory($id);
-        echo $this->getCategoryIndexPartial();
-
         return true;
-    }
-
-
-    private function getCategoryIndexPartial()
-    {
-        $categories = Category::getAllCategory();
-        return $this->view->fetchPartial('admin/categories/index', array('categories' => $categories));
     }
 
     private function renderCategoryFromPartial($category, $title, $errors, $result)
     {
         $errorsView = $this->view->fetchPartial('layouts/errors', array('errors' => $errors));
-
         return $this->view->render('admin/categories/form', array('errors' => $errorsView,
                                                                   'title' => $title,
                                                                   'result' => $result,

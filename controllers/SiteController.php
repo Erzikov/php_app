@@ -10,7 +10,7 @@ Class SiteController extends BaseController
     {
         $categories = Category::getAllCategory();
         $products = Product::getLatestProducts(6);
-        $recommended = array();
+        $recommended = Product::getRecommendedProducts();
 
         $productsView = $this->view->fetchPartial('product/index', array('products' => $products)); 
         $categoriesView = $this->view->fetchPartial('layouts/categories', array('categories' => $categories));
@@ -18,6 +18,12 @@ Class SiteController extends BaseController
 
         $this->view->render('site/index', array('products' => $productsView, 'categories' => $categoriesView, 'recommended' => $recommendedView));
 
+        return true;
+    }
+
+    public function actionAbout()
+    {
+        $this->view->render('site/about');
         return true;
     }
 }

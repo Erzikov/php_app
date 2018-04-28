@@ -8,8 +8,10 @@
                 <div class="product-details"><!--product-details-->
                     <div class="row">
                         <div class="col-sm-5">
-                            <div class="view-product">
-                                <img src="<?= models\Product::getImgUrl($product['id']) ?>" alt="" />
+                            <div class="view-product product-image-wrapper">
+                                <div class="product-img"
+                                     style="background-image: url('<?= models\Product::getImgUrl($product['id']) ?>'); height: 500px;">
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-7">

@@ -7,6 +7,9 @@
 
             <div class="col-sm-9 padding-right">
                 <?= $products ?>
+                <div class="text-center">
+                    <?= $pagination->get(); ?>        
+                </div>
             </div>
         </div>
     </div>

@@ -5,13 +5,25 @@ use components\Database;
 	
 Class Category
 {
+    public static function getCategoryByPage($currentPage, $limit)
+    {
+        $db = Database::getConnection();
+        $offset = ($currentPage - 1)*$limit;
+        $query = $db->prepare('SELECT * FROM category ORDER BY sort_order ASC LIMIT :limit OFFSET :offset');
+        $query->execute(array('limit' => $limit, 'offset' => $offset));
+
+        $result = $query->fetchAll();
+
+        return $result;
+    }
+
     public static function getAllCategory()
     {
         $db = Database::getConnection();
         $query = $db->query('SELECT * FROM category ORDER BY sort_order ASC');
-        $categories = $query->fetchAll();
+        $result = $query->fetchAll();
 
-        return $categories;
+        return $result;
     }
 
     public static function getCategoryById($id)
@@ -48,5 +60,14 @@ Class Category
     	$result = $query->execute(array('id' => $id));
 
     	return $result;
+    }
+
+    public static function getTotalCategory()
+    {
+        $db = Database::getConnection();
+        $query = $db->query('SELECT count(id) AS count FROM category');
+        $result = $query->fetch();
+
+        return $result['count'];
     }
 }

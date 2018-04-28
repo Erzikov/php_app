@@ -45,5 +45,7 @@ Class SessionController extends BaseController
         unset($_SESSION['order']);
         
         header('Location: /');
+
+        return true;
     }
 }

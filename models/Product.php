@@ -84,7 +84,7 @@ Class Product
     public static function getTotalAllProducts()
     {
         $db = Database::getConnection();
-        $query = $db->query('SELECT count(name) AS count FROM products');
+        $query = $db->query('SELECT count(name) AS count FROM products WHERE avability=true');
 
         $total =$query->fetch();
         return $total['count'];
@@ -97,6 +97,15 @@ Class Product
         $last_id = $query->fetch();
         return $last_id['id'];
     }
+
+    public static function getRecommendedProducts()
+    {
+        $db = Database::getConnection();
+        $query = $db->query("SELECT * FROM products WHERE is_recommended = true AND avability = true");
+        $result = $query->fetchAll();
+
+        return $result;
+    }   
 
     public static function createProduct($newProduct)
     {

@@ -1,15 +1,19 @@
 <?php 
 namespace controllers;
 
-use components\AdminBaseController;
+use components\{AdminBaseController, Pagination};
 use models\User;
 
 class AdminUsersController extends AdminBaseController
 {
-    public function actionIndex()
+    public function actionIndex(int $currentPage = 1)
     {
-        $content = $this->getPartialUsers();
-        $this->view->renderPartial('admin/main', array('content' => $content));
+        $total = User::getTotalUsers();
+        $limit = 6;
+        $pagination = new Pagination($total, $currentPage, $limit, 'page-');
+        $users = User::getAllUsers($currentPage, $limit);
+
+        $this->view->render('admin/users/index', array('users' => $users, 'pagination' => $pagination));
         
         return true;
     }
@@ -17,14 +21,6 @@ class AdminUsersController extends AdminBaseController
     public function actionDeleteUser($id)
     {
         User::deleteUser($id);
-        echo $this->getPartialUsers();
-
         return true;
-    }
-
-    private function getPartialUsers()
-    {
-        $users = User::getAllUsers();
-        return $this->view->fetchPartial('admin/users/index', array('users' => $users));
     }
 }

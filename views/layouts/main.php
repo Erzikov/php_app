@@ -32,8 +32,8 @@
                         <div class="col-sm-6">
                             <div class="contactinfo">
                                 <ul class="nav nav-pills">
-                                    <li><a href="#"><i class="fa fa-phone"></i> +38 093 000 11 22</a></li>
-                                    <li><a href="#"><i class="fa fa-envelope"></i> zinchenko.us@gmail.com</a></li>
+                                    <li><a href="#"><i class="fa fa-phone"></i> +12 345 666 78 90</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope"></i>lesha-erzikov@mail.ru</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -114,10 +114,9 @@
                                             <li><a href="/catalog">Каталог товаров</a></li>
                                             <li><a href="/cart">Корзина</a></li> 
                                         </ul>
-                                    </li> 
-                                    <li><a href="/blog">Блог</a></li> 
+                                    </li>  
                                     <li><a href="/about">О магазине</a></li>
-                                    <li><a href="/contacts">Контакты</a></li>
+                                    <li><a href="/about">Контакты</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -132,7 +131,7 @@
             <div class="footer-bottom">
                 <div class="container">
                     <div class="row">
-                        <p class="pull-left">Copyright © 2015</p>
+                        <p class="pull-left">Copyright © 2018</p>
                         <p class="pull-right">Курс PHP Start</p>
                     </div>
                 </div>
@@ -140,6 +139,8 @@
         </footer><!--/Footer-->
 
         <script src="/template/js/jquery.js"></script>
+        <script src="/template/js/jquery.cycle2.min.js"></script>
+        <script src="/template/js/jquery.cycle2.carousel.min.js"></script>
         <script src="/template/js/bootstrap.min.js"></script>
         <script src="/template/js/jquery.scrollUp.min.js"></script>
         <script src="/template/js/price-range.js"></script>

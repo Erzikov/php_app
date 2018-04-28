@@ -124,12 +124,15 @@ Class User
         return $user;       
     }
 
-    public static function getAllUsers()
+    public static function getAllUsers($currentPage, $limit)
     {
         $db = Database::getConnection();
-        $query = $db->query('SELECT id, name, email, number, admin FROM users');
+        $offset = ($currentPage-1)*$limit;
 
+        $query = $db->prepare('SELECT id, name, email, number, admin FROM users LIMIT :limit OFFSET :offset');
+        $query->execute(array('limit' => $limit, 'offset' => $offset));
         $result = $query->fetchAll();
+
         return $result;
     }
 
@@ -141,6 +144,15 @@ Class User
         $result = $query->fetch();
         
         return $result;
+    }
+
+    public static function getTotalUsers()
+    {
+        $db = Database::getConnection();
+        $query = $db->query('SELECT count(id) AS count FROM users');
+        $result = $query->fetch();
+
+        return $result['count'];
     }
 
     public static function isGuest()

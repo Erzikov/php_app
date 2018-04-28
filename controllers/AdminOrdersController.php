@@ -6,11 +6,19 @@ use models\{Order, Product};
 
 class AdminOrdersController extends AdminBaseController
 {
-    public function actionIndex()
+    public function actionIndex($status = null)
     {
-        $content = $this->getOrdersIndexPartial();
-        $this->view->renderPartial('admin/main', array('content' => $content));
-        return true;
+        $status = trim($status, "status-"); 
+
+        if ($status != null && $status <= 3) {        
+            $orders = Order::getOrdersByStatus($status);
+        } else {
+            $orders = Order::getAllOrders();
+        }
+
+        $this->view->render('admin/orders/index', array('orders' => $orders));
+
+        return true;    
     }
 
     public function actionView($id)
@@ -21,18 +29,12 @@ class AdminOrdersController extends AdminBaseController
         $statuses = Order::STATUSES;
 
         $products = Product::getProductsByIds($orderedProductsIds);
-        $itog = 0;
 
-/*            foreach ($products as $product) {
-                $count = $orderedProducts[$product['id']];
-                $total = $product['price']*$count;
-                $itog += $total;
-
-                echo $product['name']." - ".$count." Total: ".$total."$"."<br>";
-            }        */    
-
-
-        $this->view->render('admin/orders/view', array('order' => $order, 'products' => $products, 'statuses' => $statuses));
+        $this->view->render('admin/orders/view', array('order' => $order, 
+                                                       'count' => $orderedProducts,
+                                                       'products' => $products,
+                                                       'statuses' => $statuses));
+        
         return true;
     }
 
@@ -44,9 +46,9 @@ class AdminOrdersController extends AdminBaseController
         return true;
     }
 
-    private function getOrdersIndexPartial()
+    public function actionDelete($id)
     {
-        $orders = Order::getAllOrders();
-        return $this->view->fetchPartial('admin/orders/index', array('orders' => $orders));
+        Order::deleteOrder($id);
+        return true;
     }
 }

@@ -76,7 +76,15 @@
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-                                    <li><a href="/admin/orders">Заказы</a></li>
+                                    <li class="dropdown"><a href="#">Заказы<i class="fa fa-angle-down"></i></a>
+                                        <ul role="menu" class="sub-menu">
+                                            <li><a href="/admin/orders">Все</a></li> 
+                                            <li><a href="/admin/orders/status-0">Новые</a></li> 
+                                            <li><a href="/admin/orders/status-1">Компектуются</a></li>
+                                            <li><a href="/admin/orders/status-2">Отправлены</a></li>
+                                            <li><a href="/admin/orders/status-3">Выполнены</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a href="/admin/users">Пользователи</a></li> 
                                     <li class="dropdown"><a href="#">Категории<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">

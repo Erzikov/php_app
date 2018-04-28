@@ -25,6 +25,7 @@
                     </tr>
                 <?php endforeach; ?>
             </table>
+            <div class="text-center"><?= $pagination->get(); ?></div>
         </div>
     </div>
 </section>
