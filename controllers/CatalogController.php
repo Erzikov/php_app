@@ -4,7 +4,6 @@ namespace controllers;
 use models\{Category, Product};
 use components\{BaseController, Pagination};
 
-
 Class CatalogController extends BaseController 
 {
     public function actionIndex(int $currentPage = 1)

@@ -1,13 +1,9 @@
 <?php 
 namespace controllers;
 
-use models\Cart;
-use models\Product;
-use models\User;
-use models\Order;
+use models\{Cart, Product, User, Order};
 use components\BaseController;
 
-    
 Class CartController extends BaseController
 {
     public function actionIndex() 
