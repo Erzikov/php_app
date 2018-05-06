@@ -35,7 +35,13 @@ Class Product
     public static function getLatestProducts($count = self::SHOW_BY_DEFAULT)
     {
         $db = Database::getConnection();
-        $query = $db->prepare('SELECT * FROM products WHERE avability=true ORDER BY id DESC LIMIT :count');
+        $query = $db->prepare(
+            'SELECT * 
+             FROM products 
+             WHERE avability=true 
+             ORDER BY id DESC 
+             LIMIT :count'
+        );
         $query->execute(['count'=>$count]);
         $result = $query->fetchAll();
 
@@ -69,7 +75,11 @@ Class Product
         $db = Database::getConnection();
         $place_holders = implode(',', array_fill(0, count($ids), '?'));
 
-        $query = $db->prepare("SELECT id, name, price FROM products WHERE avability=true AND id IN ($place_holders)");
+        $query = $db->prepare(
+            "SELECT id, name, price 
+             FROM products 
+             WHERE avability=true AND id IN ($place_holders)"
+        );
         $query->execute($ids);
 
         $result = $query->fetchAll();
@@ -80,7 +90,11 @@ Class Product
     public static function getTotalProductInCategory($categoryId)
     {
         $db = Database::getConnection();
-        $query = $db->prepare('SELECT count(name) AS count FROM products WHERE avability=true AND category_id=:category_id');
+        $query = $db->prepare(
+            'SELECT count(name) AS count 
+             FROM products 
+             WHERE avability=true AND category_id=:category_id'
+        );
         $query->execute(['category_id' => $categoryId]);
 
         $total = $query->fetch();
@@ -109,7 +123,11 @@ Class Product
     public static function getRecommendedProducts()
     {
         $db = Database::getConnection();
-        $query = $db->query("SELECT * FROM products WHERE is_recommended = true AND avability = true");
+        $query = $db->query(
+            "SELECT * 
+             FROM products 
+             WHERE is_recommended = true AND avability = true"
+        );
         $result = $query->fetchAll();
 
         return $result;
@@ -118,8 +136,26 @@ Class Product
     public static function createProduct($newProduct)
     {
         $db = Database::getConnection();
-        $query = $db->prepare('INSERT INTO products(name, category_id, price, avability, brand, description, is_new, is_recommended)
-                               VALUES (:name, :category_id, :price, :avability, :brand, :description, :is_new, :is_recommended)');
+        $query = $db->prepare(
+            'INSERT INTO products(
+                name,
+                category_id,
+                price, avability,
+                brand, description,
+                is_new,is_recommended
+            )
+
+            VALUES (
+                :name,
+                :category_id,
+                :price, 
+                :avability,
+                :brand,
+                :description,
+                :is_new,
+                :is_recommended
+            )'
+        );
         $query->execute(
             [
                 'name' => $newProduct['name'], 

@@ -13,8 +13,16 @@ Class Order
         $db = Database::getConnection();
         $jsonOrder = json_encode($order);
 
-        $query = $db->prepare('INSERT INTO order_products (user_id, user_name, user_number, comment, products)
-                               VALUES (:id, :name, :number, :comment, :order)');
+        $query = $db->prepare(
+            'INSERT INTO order_products 
+                (
+                    user_id, user_name,
+                    user_number,
+                    comment,
+                    products
+                )
+            VALUES (:id, :name, :number, :comment, :order)'
+        );
         $result = $query->execute(
             [
                 'id' => $user_id,

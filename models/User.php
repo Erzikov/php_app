@@ -36,7 +36,10 @@ Class User
     {
         $db = Database::getConnection();
 
-        $query = $db->prepare('SELECT COUNT(email) AS email FROM users WHERE email = :email');
+        $query = $db->prepare(
+            'SELECT COUNT(email) AS email 
+             FROM users 
+             WHERE email = :email');
         $query->execute(["email" => $email]);
 
         $result = $query->fetch();	
@@ -51,7 +54,9 @@ Class User
     public static function createUser($name, $email, $password)
     {
         $db = Database::getConnection();
-        $query = $db->prepare('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
+        $query = $db->prepare(
+            'INSERT INTO users (name, email, password) 
+             VALUES (:name, :email, :password)');
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -129,7 +134,11 @@ Class User
         $db = Database::getConnection();
         $offset = ($currentPage-1)*$limit;
 
-        $query = $db->prepare('SELECT id, name, email, number, admin FROM users LIMIT :limit OFFSET :offset');
+        $query = $db->prepare(
+            'SELECT id, name, email, number, admin 
+             FROM users 
+             LIMIT :limit 
+             OFFSET :offset');
         $query->execute(['limit' => $limit, 'offset' => $offset]);
         $result = $query->fetchAll();
 
