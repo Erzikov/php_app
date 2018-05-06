@@ -11,8 +11,8 @@ Class ProductsController extends BaseController
         $categories = Category::getAllCategory();
         $product = Product::getProductById($id);
 
-      	$categoriesView = $this->view->fetchPartial('layouts/categories', array('categories' => $categories));
-      	$this->view->render('product/view', array('categories'=>$categoriesView, 'product' => $product));
+      	$categoriesView = $this->view->fetchPartial('layouts/categories', ['categories' => $categories]);
+      	$this->view->render('product/view', ['categories' => $categoriesView, 'product' => $product]);
 
         return true;
     }

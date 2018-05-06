@@ -37,7 +37,7 @@ Class User
         $db = Database::getConnection();
 
         $query = $db->prepare('SELECT COUNT(email) AS email FROM users WHERE email = :email');
-        $query->execute(array("email" => $email));
+        $query->execute(["email" => $email]);
 
         $result = $query->fetch();	
 
@@ -55,7 +55,7 @@ Class User
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $result = $query->execute(array('name'=>$name, 'email'=>$email, 'password'=>$password));
+        $result = $query->execute(['name'=>$name, 'email'=>$email, 'password'=>$password]);
 			 
         return $result;
     }
@@ -65,7 +65,7 @@ Class User
         $db = Database::getConnection();
         $query = $db->prepare('UPDATE users SET name = :name, number = :number WHERE id = :id');
 
-        $result = $query->execute(array('id' => $id, 'name'=>$name, 'number' => $number));
+        $result = $query->execute(['id' => $id, 'name'=>$name, 'number' => $number]);
              
         return $result;
     }
@@ -77,7 +77,7 @@ Class User
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $result = $query->execute(array('id' => $id, 'password'=>$password));
+        $result = $query->execute(['id' => $id, 'password'=>$password]);
 
         return $result;
     }
@@ -89,7 +89,7 @@ Class User
 
         $jsonCart = json_encode($cart);
 
-        $result = $query->execute(array('id' => $id, 'cart' => $jsonCart));
+        $result = $query->execute(['id' => $id, 'cart' => $jsonCart]);
         
         return $result;
     }   
@@ -98,7 +98,7 @@ Class User
     {
         $db = Database::getConnection();
         $query = $db->prepare('SELECT * FROM users WHERE email = :email');
-        $query->execute(array('email' => $email));
+        $query->execute(['email' => $email]);
 
         $user = $query->fetch();
 
@@ -117,7 +117,7 @@ Class User
     {
         $db = Database::getConnection();
         $query = $db->prepare('SELECT * FROM users WHERE id = :id');
-        $query->execute(array('id'=>$id));
+        $query->execute(['id'=>$id]);
 
         $user = $query->fetch();
 
@@ -130,7 +130,7 @@ Class User
         $offset = ($currentPage-1)*$limit;
 
         $query = $db->prepare('SELECT id, name, email, number, admin FROM users LIMIT :limit OFFSET :offset');
-        $query->execute(array('limit' => $limit, 'offset' => $offset));
+        $query->execute(['limit' => $limit, 'offset' => $offset]);
         $result = $query->fetchAll();
 
         return $result;
@@ -140,7 +140,7 @@ Class User
     {
         $db = Database::getConnection();
         $query = $db->prepare('DELETE FROM users WHERE id = :id');
-        $query->execute(array('id'=>$id));
+        $query->execute(['id'=>$id]);
         $result = $query->fetch();
         
         return $result;

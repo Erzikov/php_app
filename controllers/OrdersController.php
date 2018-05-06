@@ -6,11 +6,10 @@ use models\Order;
 
 class OrdersController extends BaseController
 {
-
     public function actionIndex()
     {
         $content = $this->getOrderIndexPartial();
-        $this->view->renderPartial('layouts/main', array('content' => $content));
+        $this->view->renderPartial('layouts/main', ['content' => $content]);
 
         return true;
     }
@@ -34,6 +33,6 @@ class OrdersController extends BaseController
     private function getOrderIndexPartial()
     {
         $userOrders = Order::getUsersOrders($_SESSION['user']['id']);
-        return $this->view->fetchPartial('orders/index', array('userOrders' => $userOrders));
+        return $this->view->fetchPartial('orders/index', ['userOrders' => $userOrders]);
     }
 }

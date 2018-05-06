@@ -14,10 +14,17 @@ Class CatalogController extends BaseController
         $products = Product::getAllProducts($currentPage, $limit);
         $pagination = new Pagination($total, $currentPage, $limit, 'page-');
         
-        $productsView = $this->view->fetchPartial('product/index', array('products' => $products));
-        $categoriesView = $this->view->fetchPartial('layouts/categories', array('categories' => $categories));
+        $productsView = $this->view->fetchPartial('product/index', ['products' => $products]);
+        $categoriesView = $this->view->fetchPartial('layouts/categories', ['categories' => $categories]);
 
-        $this->view->render('catalog/index', array('products' => $productsView, 'categories' => $categoriesView, 'pagination' => $pagination));
+        $this->view->render(
+            'catalog/index', 
+            [
+                'products' => $productsView,
+                'categories' => $categoriesView,
+                'pagination' => $pagination
+            ]
+        );
 
         return true;
 	}
@@ -30,10 +37,23 @@ Class CatalogController extends BaseController
         $products = Product::getLatestProductsByCategory($categoryId, $page, $limit);
         $pagination = new Pagination($total, $page, $limit, 'page-');	
 
-        $categoriesView = $this->view->fetchPartial('layouts/categories', array('categories' => $categories, 'categoryId' => $categoryId));
-        $productsView = $this->view->fetchPartial('product/index', array('products' => $products));
+        $categoriesView = $this->view->fetchPartial(
+            'layouts/categories',
+            [
+                'categories' => $categories,
+                'categoryId' => $categoryId
+            ]
+        );
+        $productsView = $this->view->fetchPartial('product/index', ['products' => $products]);
 
-        $this->view->render('catalog/category', array('categories' => $categoriesView, 'products' => $productsView, 'pagination' => $pagination));
+        $this->view->render(
+            'catalog/category',
+            [
+                'categories' => $categoriesView,
+                'products' => $productsView,
+                'pagination' => $pagination
+            ]
+        );
 
         return true;
     }

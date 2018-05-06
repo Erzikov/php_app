@@ -15,11 +15,15 @@ Class Order
 
         $query = $db->prepare('INSERT INTO order_products (user_id, user_name, user_number, comment, products)
                                VALUES (:id, :name, :number, :comment, :order)');
-        $result = $query->execute(array('id' => $user_id,
-                                        'name' => $name,
-                                        'number' => $number,
-                                        'comment' => $comment,
-                                        'order' => $jsonOrder));
+        $result = $query->execute(
+            [
+                'id' => $user_id,
+                'name' => $name,
+                'number' => $number,
+                'comment' => $comment,
+                'order' => $jsonOrder
+            ]
+        );
 
         return $result;
     }
@@ -37,7 +41,7 @@ Class Order
     {
         $db = Database::getConnection();
         $query = $db->prepare("SELECT * FROM order_products WHERE user_id = :id AND status < 3");
-        $query->execute(array('id' => $id));
+        $query->execute(['id' => $id]);
         $result = $query->fetchAll();
 
         return $result;
@@ -47,7 +51,7 @@ Class Order
     {
         $db = Database::getConnection();
         $query = $db->prepare("SELECT * FROM order_products WHERE id = :id");
-        $query->execute(array('id' => $id));
+        $query->execute(['id' => $id]);
         $result = $query->fetch();
 
         return $result;
@@ -62,7 +66,7 @@ Class Order
     {
         $db = Database::getConnection();
         $query = $db->prepare("SELECT * FROM order_products WHERE status = :status");
-        $query->execute(array('status' => $status));
+        $query->execute(['status' => $status]);
         $result = $query->fetchAll();
 
         return $result;
@@ -72,7 +76,7 @@ Class Order
     {
         $db = Database::getConnection();
         $query = $db->prepare("UPDATE order_products SET status = :status WHERE id = :id");
-        $result = $query->execute(array('status' => $status, 'id' => $id));
+        $result = $query->execute(['status' => $status, 'id' => $id]);
         
         return $result;
     }
@@ -81,7 +85,7 @@ Class Order
     {
         $db = Database::getConnection();
         $query = $db->prepare("DELETE FROM order_products WHERE id = :id");
-        $result = $query->execute(array('id' => $id));
+        $result = $query->execute(['id' => $id]);
 
         return $result;
     }

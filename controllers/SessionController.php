@@ -28,8 +28,15 @@ Class SessionController extends BaseController
             }
         }
 
-        $errorsView = $this->view->fetchPartial('layouts/errors', array('errors' => $errors));
-        $this->view->render('user/signin', array('errors'=>$errorsView, 'email' => $email, 'password' => $password));
+        $errorsView = $this->view->fetchPartial('layouts/errors', ['errors' => $errors]);
+        $this->view->render(
+            'user/signin',
+            [
+                'errors'=>$errorsView,
+                'email' => $email,
+                'password' => $password
+            ]
+        );
 
         return true;
     }

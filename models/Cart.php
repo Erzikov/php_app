@@ -28,11 +28,7 @@ Class Cart
 
     public static function addItem(int $id)
     {
-        $order = array();
-
-        if(isset($_SESSION['order'])) {
-            $order = $_SESSION['order'];
-        }
+        $order = isset($_SESSION['order']) ? $_SESSION['order'] : array(); 
 
         if(array_key_exists($id, $order)) {
             $order[$id]++;
@@ -47,11 +43,7 @@ Class Cart
 
     public static function deleteItem($id)
     {
-        $order = array();
-
-        if(isset($_SESSION['order'])) {
-            $order = $_SESSION['order'];
-        }
+        $order = isset($_SESSION['order']) ? $_SESSION['order'] : array();
 
         if(array_key_exists($id, $order)) {
             if($order[$id] > 1) {

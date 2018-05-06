@@ -10,7 +10,7 @@ Class Category
         $db = Database::getConnection();
         $offset = ($currentPage - 1)*$limit;
         $query = $db->prepare('SELECT * FROM category ORDER BY sort_order ASC LIMIT :limit OFFSET :offset');
-        $query->execute(array('limit' => $limit, 'offset' => $offset));
+        $query->execute(['limit' => $limit, 'offset' => $offset]);
 
         $result = $query->fetchAll();
 
@@ -30,7 +30,7 @@ Class Category
     {
 		$db = Database::getConnection();
 		$query = $db->prepare("SELECT * FROM category WHERE id = :id");
-		$query->execute(array('id' => $id));
+		$query->execute(['id' => $id]);
 
 		return $query->fetch();    	
     }
@@ -39,7 +39,7 @@ Class Category
     {
     	$db = Database::getConnection();
     	$query = $db->prepare("INSERT INTO category(name, sort_order) VALUES (:name, :sort_order)");
-    	$result = $query->execute(array('name' => $category['name'], 'sort_order' => $category['sort_order']));
+    	$result = $query->execute(['name' => $category['name'], 'sort_order' => $category['sort_order']]);
 
     	return $result;
     }
@@ -48,7 +48,13 @@ Class Category
     {
 		$db = Database::getConnection();
 		$query = $db->prepare("UPDATE category SET name = :name, sort_order = :sort_order WHERE id = :id" );
-		$result = $query->execute(array('id' => $category['id'], 'name' => $category['name'], 'sort_order' => $category['sort_order']));
+		$result = $query->execute(
+            [
+                'id' => $category['id'],
+                'name' => $category['name'],
+                'sort_order' => $category['sort_order']
+            ]
+        );
     	
     	return $result;
     }
@@ -57,7 +63,7 @@ Class Category
     {
     	$db = Database::getConnection();
     	$query = $db->prepare("DELETE FROM category WHERE id = :id");
-    	$result = $query->execute(array('id' => $id));
+    	$result = $query->execute(['id' => $id]);
 
     	return $result;
     }

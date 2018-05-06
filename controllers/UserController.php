@@ -42,9 +42,18 @@ Class UserController extends BaseController
             }
         }
 
-        $errorsView = $this->view->fetchPartial('layouts/errors', array('errors'=>$errors));
+        $errorsView = $this->view->fetchPartial('layouts/errors', ['errors'=>$errors]);
 
-        $this->view->render('user/signup', array('result'=>$result, 'errors' => $errorsView, 'name' => $name, 'password' => $password, 'email' => $email));
+        $this->view->render(
+            'user/signup',
+            [
+                'result'=>$result,
+                'errors' => $errorsView,
+                'name' => $name,
+                'password' => $password, 
+                'email' => $email
+            ]
+        );
 
         return true;
     }
@@ -53,8 +62,7 @@ Class UserController extends BaseController
     {
         if (!User::isGuest()) {
             $user = $_SESSION['user'];
-
-            $this->view->render('user/view', array('user' => $user));
+            $this->view->render('user/view', ['user' => $user]);
         } else {
             header('Location: /signin');
         }
@@ -99,20 +107,37 @@ Class UserController extends BaseController
                     }
                 }
 
-                if (empty($errors) && $updatePass) {
-                    $result = User::updateUser($id, $name, $number) && User::updatePassword($id, $newPassword);
-                    $_SESSION['user']['name'] = $name;
-                    $_SESSION['user']['number'] = $number; 
-                } elseif (empty($errors) && !$updatePass) {
-                    $result = User::updateUser($id, $name, $number);
+                // if (empty($errors) && $updatePass) {
+                //     $result = User::updateUser($id, $name, $number) && User::updatePassword($id, $newPassword);
+                //     $_SESSION['user']['name'] = $name;
+                //     $_SESSION['user']['number'] = $number; 
+                // } elseif (empty($errors) && !$updatePass) {
+                //     $result = User::updateUser($id, $name, $number);
+                //     $_SESSION['user']['name'] = $name;
+                //     $_SESSION['user']['number'] = $number;
+                // }
+
+                if (empty($errors)) {
+                    User::updateUser($id, $name, $number)
                     $_SESSION['user']['name'] = $name;
                     $_SESSION['user']['number'] = $number;
+                    if ($updatePass) {
+                        User::updatePassword($id, $newPassword);
+                    }
+                    $result = true;
                 }
             }
 
-            $errorsView = $this->view->fetchPartial('layouts/errors', array('errors'=>$errors));
+            $errorsView = $this->view->fetchPartial('layouts/errors', ['errors'=>$errors]);
 
-            $this->view->render('user/edit', array('user' => $user, 'errors'=>$errorsView, 'result' => $result));
+            $this->view->render(
+                'user/edit',
+                [
+                    'user' => $user,
+                    'errors'=>$errorsView,
+                    'result' => $result
+                ]
+            );
 
         } else {
             header('Location: /signin');
@@ -124,7 +149,7 @@ Class UserController extends BaseController
     public function actionOrders()
     {
         $userOrders = Order::getUsersOrders($_SESSION['user']['id']);
-        $this->view->render('user/orders', array('userOrders' => $userOrders));
+        $this->view->render('user/orders', ['userOrders' => $userOrders]);
         return true;
     }
 

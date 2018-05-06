@@ -6,14 +6,22 @@ use models\Category;
 
 class AdminCategoriesController extends AdminBaseController
 {
+    private const TITLE_CREATE = 'Создание категории';
+    private const TITLE_EDIT = 'Редактирование категории';
+
     public function actionIndex(int $currentPage = 1)
     {
-
         $total = Category::getTotalCategory();
         $limit = 6;
         $pagination = new Pagination($total, $currentPage, $limit, 'page-');
         $categories = Category::getCategoryByPage($currentPage, $limit);
-        $this->view->render('admin/categories/index', array('categories' => $categories, 'pagination' => $pagination));
+        $this->view->render(
+            'admin/categories/index',
+            [
+                'categories' => $categories,
+                'pagination' => $pagination
+            ]
+        );
 
         return true;
     }
@@ -22,9 +30,7 @@ class AdminCategoriesController extends AdminBaseController
     {
         $errors = array();
         $result = false;
-        $title = 'Создание категории';
-        $newCategory['name'] = '';
-        $newCategory['sort_order'] = '';
+        $newCategory['name'] = $newCategory['sort_order'] = '';
 
         if (isset($_POST['submit'])) {
             $newCategory['name'] = $_POST['name'];
@@ -43,7 +49,8 @@ class AdminCategoriesController extends AdminBaseController
             }
         }
 
-        echo $this->renderCategoryFromPartial($newCategory, $title, $errors, $result);
+        echo $this->renderCategoryFromPartial($newCategory, self::TITLE_CREATE, $errors, $result);
+        
         return true;
     }
 
@@ -51,7 +58,6 @@ class AdminCategoriesController extends AdminBaseController
     {
         $errors = array();
         $result = false;
-        $title = 'Редактирование категории';
 
         $category = Category::getCategoryById($id);
 
@@ -72,7 +78,7 @@ class AdminCategoriesController extends AdminBaseController
             }
         }
 
-        echo $this->renderCategoryFromPartial($category, $title, $errors, $result);
+        echo $this->renderCategoryFromPartial($category,  self::TITLE_EDIT, $errors, $result);
         return true;
     }
 
@@ -84,11 +90,17 @@ class AdminCategoriesController extends AdminBaseController
 
     private function renderCategoryFromPartial($category, $title, $errors, $result)
     {
-        $errorsView = $this->view->fetchPartial('layouts/errors', array('errors' => $errors));
-        return $this->view->render('admin/categories/form', array('errors' => $errorsView,
-                                                                  'title' => $title,
-                                                                  'result' => $result,
-                                                                  'name' => $category['name'],
-                                                                  'sort_order' => $category['sort_order']));
+        $errorsView = $this->view->fetchPartial('layouts/errors', ['errors' => $errors]);
+
+        return $this->view->render(
+            'admin/categories/form',
+            [ 
+                'errors' => $errorsView,
+                'title' => $title,
+                'result' => $result,
+                'name' => $category['name'],
+                'sort_order' => $category['sort_order']
+            ]
+        );
     }
 }

@@ -15,6 +15,7 @@ Class Router
     {
         $uri = $this->getURI();
         $result = false;
+
         foreach ($this->routes as $uriPattern => $path) {
             if (preg_match("~^$uriPattern$~", $uri)) {
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
@@ -31,7 +32,7 @@ Class Router
                 if ($result) {
                     break;
                 }
-            }        
+            }          
         }
 
         if (!$result) {

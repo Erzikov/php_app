@@ -16,7 +16,7 @@ class AdminOrdersController extends AdminBaseController
             $orders = Order::getAllOrders();
         }
 
-        $this->view->render('admin/orders/index', array('orders' => $orders));
+        $this->view->render('admin/orders/index', ['orders' => $orders]);
 
         return true;    
     }
@@ -30,10 +30,15 @@ class AdminOrdersController extends AdminBaseController
 
         $products = Product::getProductsByIds($orderedProductsIds);
 
-        $this->view->render('admin/orders/view', array('order' => $order, 
-                                                       'count' => $orderedProducts,
-                                                       'products' => $products,
-                                                       'statuses' => $statuses));
+        $this->view->render(
+            'admin/orders/view',
+            [
+                'order' => $order, 
+                'count' => $orderedProducts,
+                'products' => $products,
+                'statuses' => $statuses
+            ]
+        );
         
         return true;
     }

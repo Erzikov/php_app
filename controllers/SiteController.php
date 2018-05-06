@@ -12,11 +12,18 @@ Class SiteController extends BaseController
         $products = Product::getLatestProducts(6);
         $recommended = Product::getRecommendedProducts();
 
-        $productsView = $this->view->fetchPartial('product/index', array('products' => $products)); 
-        $categoriesView = $this->view->fetchPartial('layouts/categories', array('categories' => $categories));
-        $recommendedView = $this->view->fetchPartial('site/recommended', array('recommended' => $recommended));
+        $productsView = $this->view->fetchPartial('product/index', ['products' => $products]); 
+        $categoriesView = $this->view->fetchPartial('layouts/categories', ['categories' => $categories]);
+        $recommendedView = $this->view->fetchPartial('site/recommended', ['recommended' => $recommended]);
 
-        $this->view->render('site/index', array('products' => $productsView, 'categories' => $categoriesView, 'recommended' => $recommendedView));
+        $this->view->render(
+            'site/index',
+            [
+                'products' => $productsView,
+                'categories' => $categoriesView,
+                'recommended' => $recommendedView
+            ]
+        );
 
         return true;
     }

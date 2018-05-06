@@ -9,7 +9,7 @@ Class CartController extends BaseController
     public function actionIndex() 
     {
         $content = $this->getPartialCart();
-        $this->view->renderPartial('layouts/main', array('content' => $content));
+        $this->view->renderPartial('layouts/main', ['content' => $content]);
         
     	return true;
     }
@@ -25,8 +25,6 @@ Class CartController extends BaseController
     {   
         Cart::deleteItem($id);
         
-        // echo $this->getPartialCart();
-        
         return true;
     }
 
@@ -34,16 +32,10 @@ Class CartController extends BaseController
     {
         $errors = array();
         $comment = '';
-        $user_id = null;
 
-        if (User::isGuest()) {
-            $name = '';
-            $number = '';
-        } else {
-            $name = $_SESSION['user']['name'];
-            $number = $_SESSION['user']['number'];
-            $user_id = $_SESSION['user']['id'];
-        }
+        $name = !User::isGuest() ? $_SESSION['user']['name'] : "";
+        $number = !User::isGuest() ? $_SESSION['user']['number'] : "";
+        $user_id = !User::isGuest() ? $_SESSION['user']['id'] : null;
 
         if (!Cart::isEmptyCart()) {
             if (isset($_POST['submit'])) {
@@ -71,9 +63,14 @@ Class CartController extends BaseController
                 }
             }
 
-        $errorsView = $this->view->fetchPartial('layouts/errors', array('errors' => $errors));
-        $this->view->render('cart/checkout', array('errors' => $errorsView, 'name' => $name, 'number' => $number));
-            
+            $errorsView = $this->view->fetchPartial('layouts/errors', ['errors' => $errors]);
+            $this->view->render('cart/checkout',  
+                [
+                    'errors' => $errorsView,
+                    'name' => $name,
+                    'number' => $number
+                ]
+            );
         } else {
             header('Location: /');
         }
@@ -90,7 +87,12 @@ Class CartController extends BaseController
             $orderedProducts = Product::getProductsByIds($orderProductsIds);
             $totalPrice = Cart::totalPrice($orderedProducts);
 
-            return $this->view->fetchPartial('cart/index', array('orderedProducts' => $orderedProducts, 'totalPrice' => $totalPrice));
+            return $this->view->fetchPartial('cart/index',
+                [
+                    'orderedProducts' => $orderedProducts,
+                    'totalPrice' => $totalPrice
+                ]
+            );
         }
     }
 }

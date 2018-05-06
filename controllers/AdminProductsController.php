@@ -14,7 +14,7 @@ Class AdminProductsController extends AdminBaseController
         $pagination = new Pagination($total, $page, $limit, 'page-');
         $products = Product::getAllProducts($page, $limit);
         
-        $this->view->render('admin/products/index', array('products' => $products, 'pagination' => $pagination));
+        $this->view->render('admin/products/index', ['products' => $products, 'pagination' => $pagination]);
 
         return true;
     }
@@ -128,19 +128,24 @@ Class AdminProductsController extends AdminBaseController
     private function renderProductFormPartial($product, $errors, $result, $title)
     {
         $categoryList = Category::getAllCategory();
-        $errorsView = $this->view->fetchPartial('layouts/errors', array('errors'=>$errors));
+        $errorsView = $this->view->fetchPartial('layouts/errors', ['errors'=>$errors]);
 
-        $this->view->render('admin/products/form', array('name' => $product['name'],
-                                                         'productCategory' => $product['category_id'],
-                                                         'price' => $product['price'],
-                                                         'avability' => $product['avability'],
-                                                         'brand' => $product['brand'],
-                                                         'description' => $product['description'],
-                                                         'is_new' => $product['is_new'],
-                                                         'is_recommended' => $product['is_recommended'],
-                                                         'errors' => $errorsView,
-                                                         'result' => $result,
-                                                         'title' => $title,
-                                                         'categoryList' => $categoryList));
+        $this->view->render(
+            'admin/products/form',
+            [
+                'name' => $product['name'],
+                'productCategory' => $product['category_id'],
+                'price' => $product['price'],
+                'avability' => $product['avability'],
+                'brand' => $product['brand'],
+                'description' => $product['description'],
+                'is_new' => $product['is_new'],
+                'is_recommended' => $product['is_recommended'],
+                'errors' => $errorsView,
+                'result' => $result,
+                'title' => $title,
+                'categoryList' => $categoryList
+            ]
+        );
     }
 }

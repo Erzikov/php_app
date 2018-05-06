@@ -13,7 +13,7 @@ class AdminUsersController extends AdminBaseController
         $pagination = new Pagination($total, $currentPage, $limit, 'page-');
         $users = User::getAllUsers($currentPage, $limit);
 
-        $this->view->render('admin/users/index', array('users' => $users, 'pagination' => $pagination));
+        $this->view->render('admin/users/index', ['users' => $users, 'pagination' => $pagination]);
         
         return true;
     }

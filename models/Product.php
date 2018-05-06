@@ -12,7 +12,7 @@ Class Product
     {
         $db = Database::getConnection();
         $query = $db->prepare('SELECT * FROM products WHERE id = :id');
-        $query->execute(array('id' => $id));
+        $query->execute(['id' => $id]);
 
         $product = $query->fetch();
 
@@ -25,7 +25,7 @@ Class Product
         $offset = ($page-1)*$count;
 
         $query = $db->prepare('SELECT * FROM products ORDER BY id DESC LIMIT :count OFFSET :offset');
-        $query->execute(array('count' => $count, 'offset' => $offset));
+        $query->execute(['count' => $count, 'offset' => $offset]);
 
         $result = $query->fetchAll();
 
@@ -36,20 +36,28 @@ Class Product
     {
         $db = Database::getConnection();
         $query = $db->prepare('SELECT * FROM products WHERE avability=true ORDER BY id DESC LIMIT :count');
-        $query->execute(array('count'=>$count));
-        $products = $query->fetchAll();
+        $query->execute(['count'=>$count]);
+        $result = $query->fetchAll();
 
-        return $products;
+        return $result;
     } 
 
-    public static function getLatestProductsByCategory($categoryId, $page, $count = self::SHOW_BY_DEFAULT )
+    public static function getLatestProductsByCategory($categoryId, $page, $count = self::SHOW_BY_DEFAULT)
     {
         $db = Database::getConnection();
-
         $offset = ($page-1)*$count;
 
-        $query = $db->prepare('SELECT * FROM products WHERE avability=true AND category_id=:categoryId ORDER BY id DESC LIMIT :count OFFSET :offset');
-        $query->execute(array('categoryId'=>$categoryId, 'count' => $count, 'offset' => $offset));
+        $query = $db->prepare('SELECT * FROM products 
+                               WHERE avability=true AND category_id=:categoryId 
+                               ORDER BY id DESC 
+                               LIMIT :count OFFSET :offset');
+        $query->execute(
+            [
+                'categoryId'=>$categoryId,
+                'count' => $count,
+                'offset' => $offset
+            ]
+        );
 
         $products = $query->fetchAll();
 
@@ -64,16 +72,16 @@ Class Product
         $query = $db->prepare("SELECT id, name, price FROM products WHERE avability=true AND id IN ($place_holders)");
         $query->execute($ids);
 
-        $items = $query->fetchAll();
+        $result = $query->fetchAll();
 
-        return $items;
+        return $result;
     }
 
     public static function getTotalProductInCategory($categoryId)
     {
         $db = Database::getConnection();
         $query = $db->prepare('SELECT count(name) AS count FROM products WHERE avability=true AND category_id=:category_id');
-        $query->execute(array('category_id' => $categoryId));
+        $query->execute(['category_id' => $categoryId]);
 
         $total = $query->fetch();
 
@@ -112,14 +120,18 @@ Class Product
         $db = Database::getConnection();
         $query = $db->prepare('INSERT INTO products(name, category_id, price, avability, brand, description, is_new, is_recommended)
                                VALUES (:name, :category_id, :price, :avability, :brand, :description, :is_new, :is_recommended)');
-        $query->execute(array('name' => $newProduct['name'], 
-                              'category_id' => $newProduct['category_id'],
-                              'price' => $newProduct['price'],
-                              'avability' => $newProduct['avability'],
-                              'brand' => $newProduct['brand'],
-                              'description' => $newProduct['description'],
-                              'is_new' => $newProduct['is_new'],
-                              'is_recommended' => $newProduct['is_recommended']));
+        $query->execute(
+            [
+                'name' => $newProduct['name'], 
+                'category_id' => $newProduct['category_id'],
+                'price' => $newProduct['price'],
+                'avability' => $newProduct['avability'],
+                'brand' => $newProduct['brand'],
+                'description' => $newProduct['description'],
+                'is_new' => $newProduct['is_new'],
+                'is_recommended' => $newProduct['is_recommended']
+            ]
+        );
         
         $result = self::getLastId(); 
 
@@ -143,15 +155,20 @@ Class Product
                                    is_recommended = :is_recommended 
                                WHERE id = :id');
 
-        $result = $query->execute(array('id' => $product['id'],
-                                        'name' => $product['name'], 
-                                        'category_id' => $product['category_id'],
-                                        'price' => $product['price'],
-                                        'avability' => $product['avability'],
-                                        'brand' => $product['brand'],
-                                        'description' => $product['description'],
-                                        'is_new' => $product['is_new'],
-                                        'is_recommended' => $product['is_recommended']));
+        $result = $query->execute(
+            [
+                'id' => $product['id'],
+                'name' => $product['name'], 
+                'category_id' => $product['category_id'],
+                'price' => $product['price'],
+                'avability' => $product['avability'],
+                'brand' => $product['brand'],
+                'description' => $product['description'],
+                'is_new' => $product['is_new'],
+                'is_recommended' => $product['is_recommended']
+            ]
+        );
+
         return $result;
     }
 
@@ -159,7 +176,7 @@ Class Product
     {
         $db = Database::getConnection();
         $query = $db->prepare('DELETE FROM products WHERE id = :id');
-        $query->execute(array('id' => $id));
+        $query->execute(['id' => $id]);
         $result = $query->fetch();
 
         Product::deleteImg($id);
