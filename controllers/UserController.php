@@ -42,12 +42,12 @@ Class UserController extends BaseController
             }
         }
 
-        $errorsView = $this->view->fetchPartial('layouts/errors', ['errors'=>$errors]);
+        $errorsView = $this->view->fetchPartial('layouts/errors', ['errors' => $errors]);
 
         $this->view->render(
             'user/signup',
             [
-                'result'=>$result,
+                'result' => $result,
                 'errors' => $errorsView,
                 'name' => $name,
                 'password' => $password, 
@@ -107,18 +107,8 @@ Class UserController extends BaseController
                     }
                 }
 
-                // if (empty($errors) && $updatePass) {
-                //     $result = User::updateUser($id, $name, $number) && User::updatePassword($id, $newPassword);
-                //     $_SESSION['user']['name'] = $name;
-                //     $_SESSION['user']['number'] = $number; 
-                // } elseif (empty($errors) && !$updatePass) {
-                //     $result = User::updateUser($id, $name, $number);
-                //     $_SESSION['user']['name'] = $name;
-                //     $_SESSION['user']['number'] = $number;
-                // }
-
                 if (empty($errors)) {
-                    User::updateUser($id, $name, $number)
+                    User::updateUser($id, $name, $number);
                     $_SESSION['user']['name'] = $name;
                     $_SESSION['user']['number'] = $number;
                     if ($updatePass) {
